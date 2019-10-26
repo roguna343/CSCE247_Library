@@ -2,10 +2,10 @@ package Library247;
 
 import java.util.LinkedList;
 
-public class Item {
-	//Custom variable for genres
+public abstract class Item {
+	//Enum for genre variable
 	enum Genre {
-		Fanstasy, Scifi, Horror, Drama, 
+		Fanstasy, Scifi, Horror, Drama, Audio,
 		Romantic, Comedy, History, Poetry, Information, 
 		Biography, Mystery, Comic, Textbook;  
 	}
@@ -17,10 +17,8 @@ public class Item {
 	private Genre[] genre; //2 genres at most
 	private String desc;
 	private LinkedList<String[]> borrower = new LinkedList<>(); //String[2] = borrower, daysLeft
-	/**
-	 * Convert all methods to private
-	 * Currently public for JUnit testing
-	 */
+	private String series;
+	
 	//Constructors
 	public Item() {
 		this.title = null;
@@ -28,15 +26,18 @@ public class Item {
 		this.year = 0;
 		this.genre = new Genre[2];
 		this.desc = null;
-		this.borrower = new LinkedList<>();		
+		this.borrower = new LinkedList<>();	
+		this.series = null;
 	}
 	
-	public Item(String title, String author, int year, String desc, LinkedList<String[]> borrower) {
+	public Item(String title, String author, int year, Genre[] genre, String desc, LinkedList<String[]> borrower, String series) {
 		this.title = title;
 		this.author = author;
 		this.year = year;
+		this.genre = genre;
 		this.desc = desc;
 		this.borrower = borrower;
+		this.series = series;
 	}
 	
 	//Getters and Setters
@@ -64,6 +65,14 @@ public class Item {
 		this.year = year;
 	}
 
+	public Genre[] getGenre() {
+		return genre;
+	}
+
+	public void setGenre(Genre[] genre) {
+		this.genre = genre;
+	}
+
 	public String getDesc() {
 		return desc;
 	}
@@ -79,20 +88,15 @@ public class Item {
 	public void setBorrower(LinkedList<String[]> borrower) {
 		this.borrower = borrower;
 	}
-	
-	public String toString() {
-		String ret = "Title: ";
-		ret += this.title + "\n";
-		ret += "Author: ";
-		ret += this.author + "\n";
-		ret += "Year: ";
-		ret += this.year + "\n";
-		ret += "Genre(s): ";
-		ret += this.genre[0] + ", " + this.genre[1] + "\n";
-		ret += "Desc: ";
-		ret += this.desc + "\n";
-		ret += "Quantity: ";
-		ret += this.borrower.size();
-		return ret;
+
+	public String getSeries() {
+		return series;
 	}
+
+	public void setSeries(String series) {
+		this.series = series;
+	}
+	
+	//For JUnit testing
+	public abstract String toString();
 }
