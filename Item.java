@@ -3,10 +3,18 @@ package Library247;
 import java.util.LinkedList;
 
 public class Item {
+	//Custom variable for genres
+	enum Genre {
+		Fanstasy, Scifi, Horror, Drama, 
+		Romantic, Comedy, History, Poetry, Information, 
+		Biography, Mystery, Comic, Textbook;  
+	}
+	
 	//Instance
 	private String title;
 	private String author;
 	private int year;
+	private Genre[] genre; //2 genres at most
 	private String desc;
 	private LinkedList<String[]> borrower = new LinkedList<>(); //String[2] = borrower, daysLeft
 	/**
@@ -18,6 +26,7 @@ public class Item {
 		this.title = null;
 		this.author = null;
 		this.year = 0;
+		this.genre = new Genre[2];
 		this.desc = null;
 		this.borrower = new LinkedList<>();		
 	}
@@ -78,12 +87,12 @@ public class Item {
 		ret += this.author + "\n";
 		ret += "Year: ";
 		ret += this.year + "\n";
+		ret += "Genre(s): ";
+		ret += this.genre[0] + ", " + this.genre[1] + "\n";
 		ret += "Desc: ";
 		ret += this.desc + "\n";
 		ret += "Quantity: ";
 		ret += this.borrower.size();
 		return ret;
 	}
-	
-	
 }
