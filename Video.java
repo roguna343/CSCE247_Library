@@ -62,13 +62,13 @@ public class Video extends Item {
 	}
 	
 	public String toString() {
-		return "\nVideo title: " + super.getTitle() +
+		return "\nVideo Title: " + super.getTitle() +
 				"\nYear: " + super.getYear() +
-				"\nVideo description: " + super.getDesc() +
+				"\nVideo Desc: " + super.getDesc() +
 				"\nTime: " + this.time +
 				"\nStudio(s): " + this.studios +
 				"\nAwards: " + this.awards +
-				"\nHas any prequels/sequels? " + (this.hasSisterMovies ? "yes" : "no") +
+				"\nHas any prequels/sequels? " + this.isHasSisterMovies() +
 				"\nBorrower: " + super.getBorrower().size();
 	}
 

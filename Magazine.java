@@ -51,15 +51,13 @@ public class Magazine extends Item {
 	
 	public String toString() {
 		String ret;
-		ret = "Title: " + this.getTitle() + "\n";
+		ret = "Magazine Title: " + this.getTitle() + "\n";
 		ret += "Author: " + this.getAuthor() + "\n";
 		ret += "Year: " + this.getYear() + "\n";
-		ret += "Genre: " + this.getGenre()[0] + " " + this.getGenre()[1] + "\n";
-		ret += "Desc: " + this.getDesc() + "\n";
-		ret += "Borrower: " + this.getBorrower().size() + "\n";
-		ret += "Series: " +  this.getSeries() + "\n";
+		ret += "Magazine Desc: " + this.getDesc() + "\n";
+		ret += "Part of a series? " +  this.getSeries() + "\n";
 		ret += "Articles: " + this.getArticles() + "\n";
-		ret += "Issue: " + this.getIssue()[0] + this.getIssue()[1] + "\n";
+		ret += "Issue: " + this.getIssue()[0] + " " + this.getIssue()[1] + "\n";
 		ret += "Mature: " + this.isMature();
 		return ret;
 	}
