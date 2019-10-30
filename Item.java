@@ -10,7 +10,7 @@ public abstract class Item {
 		Biography, Mystery, Comic, Textbook;  
 	}
 	
-	//Instance
+	//Variables
 	private String title;
 	private String author;
 	private int year;
@@ -18,6 +18,7 @@ public abstract class Item {
 	private String desc;
 	private LinkedList<String[]> borrower = new LinkedList<>(); //String[2] = borrower, daysLeft
 	private String series;
+	private int[] ratings;
 	
 	//Constructors
 	public Item() {
@@ -28,9 +29,10 @@ public abstract class Item {
 		this.desc = null;
 		this.borrower = new LinkedList<>();	
 		this.series = null;
+		this.ratings = new int[2];
 	}
 	
-	public Item(String title, String author, int year, Genre[] genre, String desc, LinkedList<String[]> borrower, String series) {
+	public Item(String title, String author, int year, Genre[] genre, String desc, LinkedList<String[]> borrower, String series, int[] ratings) {
 		this.title = title;
 		this.author = author;
 		this.year = year;
@@ -38,6 +40,7 @@ public abstract class Item {
 		this.desc = desc;
 		this.borrower = borrower;
 		this.series = series;
+		this.ratings = ratings;
 	}
 	
 	//Getters and Setters
@@ -96,7 +99,14 @@ public abstract class Item {
 	public void setSeries(String series) {
 		this.series = series;
 	}
+
+	public int[] getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(int[] ratings) {
+		this.ratings = ratings;
+	}
 	
-	//For JUnit testing
-	public abstract String toString();
+	public abstract String toSave();
 }

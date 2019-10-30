@@ -3,12 +3,13 @@ package Library247;
 import java.util.LinkedList;
 
 public class Video extends Item {
-	
+	//Variables
 	private int time;
 	private LinkedList<String> awards;
 	private LinkedList<String> studios;
 	private boolean hasSisterMovies;
 	
+	//Constructors
 	public Video() {
 		super();
 		time = 0;
@@ -17,18 +18,15 @@ public class Video extends Item {
 		hasSisterMovies = false;
 	}
 	
-	public Video(String title, int year, String desc, int time, LinkedList<String> studios, 
-			LinkedList<String> awards, boolean hasSisterMovies, LinkedList<String[]> borrower) {
-		super.setTitle(title);
-		super.setYear(year);
-		super.setDesc(desc);
+	public Video(String title, String author, int year, Genre[] genre, String desc, LinkedList<String[]> borrower, int[] ratings, String series, int time, LinkedList<String> studios, LinkedList<String> awards, boolean hasSisterMovies) {
+		super(title, author, year, genre, desc, borrower, series, ratings);
 		this.time = time;
 		this.awards = awards;
 		this.studios = studios;
 		this.hasSisterMovies = hasSisterMovies;
-		super.setBorrower(borrower);
 	}
 
+	//Getters and Setters
 	public int getTime() {
 		return time;
 	}
@@ -61,15 +59,8 @@ public class Video extends Item {
 		this.hasSisterMovies = hasSisterMovies;
 	}
 	
-	public String toString() {
-		return "\nVideo Title: " + super.getTitle() +
-				"\nYear: " + super.getYear() +
-				"\nVideo Desc: " + super.getDesc() +
-				"\nTime: " + this.time +
-				"\nStudio(s): " + this.studios +
-				"\nAwards: " + this.awards +
-				"\nHas any prequels/sequels? " + this.isHasSisterMovies() +
-				"\nBorrower: " + super.getBorrower().size();
+	public String toSave()
+	{
+		return "";
 	}
-
 }

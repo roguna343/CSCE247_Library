@@ -8,12 +8,14 @@ public class Book extends Item {
 		hardback, paperback, audiobook, ebook;
 	}
 
+	//Variables
 	private int pages;
 	private LinkedList<String> awards;
 	private LinkedList<String> publisher;
 	private String edition;
 	private bookType type;
 
+	//Constructors
 	public Book() {
 		super();
 		this.pages = 0;
@@ -23,15 +25,8 @@ public class Book extends Item {
 		this.type = null;
 	}
 
-	public Book(int pages, LinkedList<String> awards, LinkedList<String> publisher,
-			String edition, bookType type) {
-
-		this.getAuthor();
-		this.getTitle();
-		this.getYear();
-		this.getGenre();
-		this.getDesc();
-		this.getBorrower();
+	public Book(String title, String author, int year, Genre[] genre, String desc, LinkedList<String[]> borrower, int[] ratings, String series, int pages, LinkedList<String> awards, LinkedList<String> publisher, String edition, bookType type) {
+		super(title, author, year, genre, desc, borrower, series, ratings);
 		this.pages = pages;
 		this.awards = awards;
 		this.publisher = publisher;
@@ -39,6 +34,7 @@ public class Book extends Item {
 		this.type = type;
 	}
 
+	//Getters and Setters
 	public int getPages() {
 		return pages;
 	}
@@ -78,16 +74,9 @@ public class Book extends Item {
 	public void setType(bookType type) {
 		this.type = type;
 	}
-
-	@Override
-	public String toString() {
-		String ret;
-		ret = "Book Title: " + this.getTitle() + "\n";
-		ret += "Author: " + this.getAuthor() + "\n";
-		ret += "Year: " + this.getYear() + "\n";
-		ret += "Book Desc: " + this.getDesc() + "\n";
-		ret += "Part of Series: " + this.getSeries() + "\n";
-		ret += "Awards: " + this.getAwards();
-		return ret;
+	
+	public String toSave()
+	{
+		return "";
 	}
 }
