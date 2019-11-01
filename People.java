@@ -1,4 +1,4 @@
-package CSCE247_Library;
+package Library247;
 
 public abstract class People {
 	private String name;

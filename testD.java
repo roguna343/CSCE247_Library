@@ -7,6 +7,7 @@ public class testD {
 		Item mag = new Magazine();
 		Item vid = new Video();
 		Item boo = new Book();
+		System.out.println(mag.getRatings());
 	}
 
 }

@@ -18,7 +18,7 @@ public class Video extends Item {
 		hasSisterMovies = false;
 	}
 	
-	public Video(String title, String author, int year, Genre[] genre, String desc, LinkedList<String[]> borrower, int[] ratings, String series, int time, LinkedList<String> studios, LinkedList<String> awards, boolean hasSisterMovies) {
+	public Video(String title, String author, int year, Genre[] genre, String desc, LinkedList<String[]> borrower, String series, double[] ratings, int time, LinkedList<String> studios, LinkedList<String> awards, boolean hasSisterMovies) {
 		super(title, author, year, genre, desc, borrower, series, ratings);
 		this.time = time;
 		this.awards = awards;

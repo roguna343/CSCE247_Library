@@ -19,13 +19,13 @@ public class Book extends Item {
 	public Book() {
 		super();
 		this.pages = 0;
-		this.awards = null;
-		this.publisher = null;
+		this.awards = new LinkedList<String>();
+		this.publisher = new LinkedList<String>();
 		this.edition = null;
 		this.type = null;
 	}
 
-	public Book(String title, String author, int year, Genre[] genre, String desc, LinkedList<String[]> borrower, int[] ratings, String series, int pages, LinkedList<String> awards, LinkedList<String> publisher, String edition, bookType type) {
+	public Book(String title, String author, int year, Genre[] genre, String desc, LinkedList<String[]> borrower, String series, double[] ratings, int pages, LinkedList<String> awards, LinkedList<String> publisher, String edition, bookType type) {
 		super(title, author, year, genre, desc, borrower, series, ratings);
 		this.pages = pages;
 		this.awards = awards;
@@ -77,6 +77,7 @@ public class Book extends Item {
 	
 	public String toSave()
 	{
-		return "";
+		String ret = "";
+		return ret;
 	}
 }
