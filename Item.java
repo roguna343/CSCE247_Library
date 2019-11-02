@@ -1,6 +1,7 @@
 package Library247;
 
 import java.util.LinkedList;
+import org.json.*;
 
 public abstract class Item {
 	//Enum for genre variable
@@ -108,5 +109,5 @@ public abstract class Item {
 		this.ratings = ratings;
 	}
 	
-	public abstract String toSave();
+	public abstract JSONObject getJSON() throws JSONException;
 }

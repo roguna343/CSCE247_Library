@@ -1,6 +1,7 @@
 package Library247;
 
 import java.util.LinkedList;
+import org.json.*;
 
 public class Book extends Item {
 	
@@ -75,9 +76,8 @@ public class Book extends Item {
 		this.type = type;
 	}
 	
-	public String toSave()
+	public JSONObject toSave()
 	{
-		String ret = "";
-		return ret;
+		
 	}
 }
