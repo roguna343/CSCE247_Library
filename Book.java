@@ -6,7 +6,7 @@ import org.json.*;
 public class Book extends Item {
 	
 	enum bookType {
-		hardback, paperback, audiobook, ebook;
+		noType, hardback, paperback, audiobook, ebook;
 	}
 
 	//Variables
@@ -22,8 +22,8 @@ public class Book extends Item {
 		this.pages = 0;
 		this.awards = new LinkedList<String>();
 		this.publisher = new LinkedList<String>();
-		this.edition = null;
-		this.type = null;
+		this.edition = "No edition";
+		this.type = bookType.noType;
 	}
 
 	public Book(String title, String author, int year, Genre[] genre, String desc, LinkedList<String[]> borrower, String series, double[] ratings, int pages, LinkedList<String> awards, LinkedList<String> publisher, String edition, bookType type) {

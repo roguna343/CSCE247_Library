@@ -23,13 +23,13 @@ public abstract class Item {
 	
 	//Constructors
 	public Item() {
-		this.title = null;
-		this.author = null;
+		this.title = "No title";
+		this.author = "No author";
 		this.year = 0;
 		this.genre = new Genre[2];
-		this.desc = null;
+		this.desc = "No desc";
 		this.borrower = new LinkedList<String[]>();	
-		this.series = null;
+		this.series = "No series";
 		this.ratings = new double[2];
 	}
 	
