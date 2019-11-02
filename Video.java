@@ -1,6 +1,7 @@
 package Library247;
 
 import java.util.LinkedList;
+import org.json.*;
 
 public class Video extends Item {
 	//Variables
@@ -59,8 +60,21 @@ public class Video extends Item {
 		this.hasSisterMovies = hasSisterMovies;
 	}
 	
-	public String toSave()
+	public JSONObject getJSON() throws Exception
 	{
-		return "";
+		JSONObject ret = new JSONObject();
+		ret.put("title", this.getTitle());
+		ret.put("author", this.getAuthor());
+		ret.put("year", this.getYear());
+		ret.put("genre", this.getGenre());
+		ret.put("desc", this.getDesc());
+		ret.put("borrower", this.getBorrower());
+		ret.put("series", this.getSeries());
+		ret.put("ratings", this.getRatings());
+		ret.put("time", this.getTime());
+		ret.put("awards", this.getAwards());
+		ret.put("studios", this.getStudios());
+		ret.put("hasSisterMovies", this.isHasSisterMovies());
+		return ret;
 	}
 }

@@ -76,7 +76,7 @@ public class Book extends Item {
 		this.type = type;
 	}
 	
-	public JSONObject getJSON() throws JSONException
+	public JSONObject getJSON() throws Exception
 	{
 		JSONObject ret = new JSONObject();
 		ret.put("title", this.getTitle());
