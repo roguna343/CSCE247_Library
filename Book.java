@@ -76,8 +76,22 @@ public class Book extends Item {
 		this.type = type;
 	}
 	
-	public JSONObject toSave()
+	public JSONObject getJSON() throws JSONException
 	{
-		
+		JSONObject ret = new JSONObject();
+		ret.put("title", this.getTitle());
+		ret.put("author", this.getAuthor());
+		ret.put("year", this.getYear());
+		ret.put("genre", this.getGenre());
+		ret.put("desc", this.getDesc());
+		ret.put("borrower", this.getBorrower());
+		ret.put("series", this.getSeries());
+		ret.put("ratings", this.getRatings());
+		ret.put("pages", this.getPages());
+		ret.put("awards", this.getAwards());
+		ret.put("publisher", this.getAwards());
+		ret.put("edition", this.getEdition());
+		ret.put("type", this.getType());
+		return ret;
 	}
 }

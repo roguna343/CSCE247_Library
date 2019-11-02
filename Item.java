@@ -109,5 +109,5 @@ public abstract class Item {
 		this.ratings = ratings;
 	}
 	
-	public abstract JSONObject getJSON() throws JSONException;
+	public abstract JSONObject getJSON() throws Exception;
 }
