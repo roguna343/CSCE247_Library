@@ -1,0 +1,37 @@
+{"Book":[{
+	"title": "Dune",
+	"author": "Frank Herbert",
+	"year": 1965,
+	"genre": ["Scifi"],
+	"desc": "Set on the desert planet Arrakis, follow the story of Muad'Dib",
+	"borrower": "Ted Franklin",
+	"series": "Dune Series",
+	"ratings": "4",
+	"pages": "373",
+	"awards": "pullitzer",
+	"publisher": "some dudes",
+	"edition": "1",
+	"type": "scifi"
+	},
+	{
+	"title": "To kill a Mockingbird",
+	"author": "Harper Lee",
+	"year": "1960",
+	"genre": ["Drama"],
+	"desc": "Follow Scout Finch as she grows up in Great Depression alabama and deals with prejudice",
+	"borrower": "Rawlings Oguna",
+	"series": "None",
+	"pages": "296",
+	"ratings": "3",
+	"awards": "Pulitzer",
+	"publisher": "J. B. Lippincott & Co.",
+	"edition": "3",
+	"type": "ebook"
+	}
+]}
+{"Magazine":[{
+
+}
+{"Video":[{
+
+}
