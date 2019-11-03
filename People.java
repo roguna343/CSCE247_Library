@@ -13,11 +13,11 @@ public abstract class People {
 		this.password = null;
 	}
 	
-	public People(String name, int age, String[] loginCred) {
-		this.name = null;
-		this.age = 0;
-		this.username = null;
-		this.password = null;
+	public People(String name, int age, String username, String password) {
+		this.name = name;
+		this.age = age;
+		this.username = username;
+		this.password = password;
 	}
 
 	public String getName() {
