@@ -2,6 +2,7 @@ package Library247;
 
 import java.util.LinkedList;
 import org.json.*;
+import org.json.simple.JSONObject;
 
 public class Magazine extends Item {
 	//Variables
@@ -17,7 +18,7 @@ public class Magazine extends Item {
 		this.isMature = false;
 	}
 	
-	public Magazine(String title, String author, int year, Genre[] genre, String desc, LinkedList<String[]> borrower, String series, double[] ratings, int articles, String[] issue, boolean isMature) {
+	public Magazine(String title, String author, int year, String[] genre, String desc, LinkedList<String[]> borrower, String series, double[] ratings, int articles, String[] issue, boolean isMature) {
 		super(title, author, year, genre, desc, borrower, series, ratings);
 		this.articles = articles;
 		this.issue = issue;

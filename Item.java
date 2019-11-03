@@ -1,39 +1,34 @@
 package Library247;
 
 import java.util.LinkedList;
-import org.json.*;
+import org.json.simple.JSONObject;
 
 public abstract class Item {
-	//Enum for genre variable
-	enum Genre {
-		Fanstasy, Scifi, Horror, Drama, Audio,
-		Romantic, Comedy, History, Poetry, Information, 
-		Biography, Mystery, Comic, Textbook;  
-	}
 	
 	//Variables
 	private String title;
 	private String author;
 	private int year;
-	protected Genre[] genre; //2 genres at most
+	protected String[] genre; //2 genres at most
 	private String desc;
 	protected LinkedList<String[]> borrower = new LinkedList<>(); //String[2] = borrower, daysLeft
 	private String series;
-	protected double[] ratings;
+	protected double[] ratings; //double[2] = overall rating, # of ratings
 	
 	//Constructors
 	public Item() {
 		this.title = "No title";
 		this.author = "No author";
 		this.year = 0;
-		this.genre = new Genre[2];
+		this.genre = new String[2];
 		this.desc = "No desc";
 		this.borrower = new LinkedList<String[]>();	
 		this.series = "No series";
-		this.ratings = new double[2];
+		double[] toSet = {0, 0};
+		this.ratings = toSet;
 	}
 	
-	public Item(String title, String author, int year, Genre[] genre, String desc, LinkedList<String[]> borrower, String series, double[] ratings) {
+	public Item(String title, String author, int year, String[] genre, String desc, LinkedList<String[]> borrower, String series, double[] ratings) {
 		this.title = title;
 		this.author = author;
 		this.year = year;
@@ -66,15 +61,63 @@ public abstract class Item {
 	}
 
 	public void setYear(int year) {
-		this.year = year;
+		if (year >= 0) {
+			this.year = year;
+		}
 	}
 
-	public Genre[] getGenre() {
+	public String[] getGenre() {
 		return genre;
 	}
 
-	public void setGenre(Genre[] genre) {
-		this.genre = genre;
+	public void setGenre(String genre, int index) {
+		if (index == 0 || index == 1) {
+			if (genre.toLowerCase().equals("fantasy")) {
+				this.genre[index] = "Fantasy";
+			}
+			else if (genre.toLowerCase().equals("scifi")) {
+				this.genre[index] = "Scifi";
+			}
+			else if (genre.toLowerCase().equals("horror")) {
+				this.genre[index] = "Horror";
+			}
+			else if (genre.toLowerCase().equals("drama")) {
+				this.genre[index] = "Drama";
+			}
+			else if (genre.toLowerCase().equals("romantic")) {
+				this.genre[index] = "Romantic";
+			}
+			else if (genre.toLowerCase().equals("comedy")) {
+				this.genre[index] = "Comedy";
+			}
+			else if (genre.toLowerCase().equals("history")) {
+				this.genre[index] = "History";
+			}
+			else if (genre.toLowerCase().equals("drama")) {
+				this.genre[index] = "Drama";
+			}
+			else if (genre.toLowerCase().equals("poetry")) {
+				this.genre[index] = "Poetry";
+			}
+			else if (genre.toLowerCase().equals("information")) {
+				this.genre[index] = "Information";
+			}
+			else if (genre.toLowerCase().equals("biography")) {
+				this.genre[index] = "Biography";
+			}
+			else if (genre.toLowerCase().equals("mystery")) {
+				this.genre[index] = "Mystery";
+			}
+			else if (genre.toLowerCase().equals("comic")) {
+				this.genre[index] = "Comic";
+			}
+			else if (genre.toLowerCase().equals("textbook")) {
+				this.genre[index] = "Textbook";
+			}
+			else {
+				this.genre[index] = "Other";
+			}
+		}
 	}
 
 	public String getDesc() {
@@ -109,5 +152,37 @@ public abstract class Item {
 		this.ratings = ratings;
 	}
 	
+	//Methods
+	public int getQuantity() {
+		return this.getBorrower().size();
+	}
+	
+	public void increaseQuantity()
+	{
+		LinkedList<String[]> toSet = this.getBorrower();
+		String[] toAdd = new String[2];
+		toSet.add(toAdd);
+		this.setBorrower(toSet);
+	}
+	
+	public void decreaseQuantity(int index)
+	{
+		if (index > 0 && index <= this.getQuantity()) {
+			LinkedList<String[]> toSet = this.getBorrower();
+			toSet.remove(index);
+			this.setBorrower(toSet);
+		}
+	}
+	
+	public void updateRatings(double given)
+	{
+		if (given >= 0 || given <= 5) {
+			double newOverall = given + (this.getRatings()[0] * this.getRatings()[1]);
+			newOverall /= (this.getRatings()[1] + 1);
+			double[] toSet = {newOverall, this.getRatings()[1] + 1};
+			this.setRatings(toSet);
+		}
+	}
+		
 	public abstract JSONObject getJSON() throws Exception;
 }

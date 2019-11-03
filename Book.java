@@ -1,20 +1,16 @@
 package Library247;
 
 import java.util.LinkedList;
-import org.json.*;
+import org.json.simple.JSONObject;
 
 public class Book extends Item {
 	
-	enum bookType {
-		noType, hardback, paperback, audiobook, ebook;
-	}
-
 	//Variables
 	private int pages;
 	private LinkedList<String> awards;
 	private LinkedList<String> publisher;
 	private String edition;
-	private bookType type;
+	private String type;
 
 	//Constructors
 	public Book() {
@@ -23,10 +19,12 @@ public class Book extends Item {
 		this.awards = new LinkedList<String>();
 		this.publisher = new LinkedList<String>();
 		this.edition = "No edition";
-		this.type = bookType.noType;
+		this.type = "No type";
 	}
 
-	public Book(String title, String author, int year, Genre[] genre, String desc, LinkedList<String[]> borrower, String series, double[] ratings, int pages, LinkedList<String> awards, LinkedList<String> publisher, String edition, bookType type) {
+	public Book(String title, String author, int year, String[] genre, String desc, 
+			LinkedList<String[]> borrower, String series, double[] ratings, int pages, 
+			LinkedList<String> awards, LinkedList<String> publisher, String edition, String type) {
 		super(title, author, year, genre, desc, borrower, series, ratings);
 		this.pages = pages;
 		this.awards = awards;
@@ -68,12 +66,34 @@ public class Book extends Item {
 		this.edition = edition;
 	}
 
-	public bookType getType() {
+	public String getType() {
 		return type;
 	}
+	/*
+	enum bookType {
+		noType, hardback, paperback, audiobook, ebook;
+	}
+	*/
 
-	public void setType(bookType type) {
-		this.type = type;
+	public void setType(String type) {
+		if (type.toLowerCase().equals("hardback")) {
+			type = "Hardback";
+		}
+		else if (type.toLowerCase().equals("paperback"))
+		{
+			type = "Paperback";
+		}
+		else if (type.toLowerCase().equals("audio"))
+		{
+			type = "Audio";
+		}
+		else if (type.toLowerCase().equals("ebook"))
+		{
+			type = "eBook";
+		}
+		else {
+			type = "Other Type";
+		}
 	}
 	
 	public JSONObject getJSON() throws Exception

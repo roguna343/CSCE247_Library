@@ -1,6 +1,7 @@
-package CSCE247_Library;
+package Library247;
 
 public abstract class User extends People {
+
 	public static final int LIMIT = 10;
 	public Item[] checkedItem;
 	public String Birthday;
@@ -15,8 +16,7 @@ public abstract class User extends People {
 		this.enabled = false;
 	}
 	
-	public User(Item[] checkedItem, String Birthday, double fines, 
-			boolean enabled) {
+	public User(Item[] checkedItem, String Birthday, double fines, boolean enabled) {
 		this.getName();
 		this.getAge();
 		this.getUsername();
@@ -24,9 +24,9 @@ public abstract class User extends People {
 		this.checkedItem = checkedItem;
 		this.Birthday = Birthday;
 		this.fines = fines;
-		this.enabled = enabled;
+		this.enabled = enabled;	
 	}
-
+	
 	public Item[] getCheckedItem() {
 		return checkedItem;
 	}
@@ -77,4 +77,5 @@ public abstract class User extends People {
 	public void getFees() {
 		
 	}
+
 }
