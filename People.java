@@ -1,16 +1,19 @@
 package CSCE247_Library;
 
+import org.json.simple.JSONObject;
+
 public abstract class People {
+	
 	private String name;
 	private int age;
 	private String username;
 	private String password;
 	
 	public People() {
-		this.name = null;
+		this.name = "no name";
 		this.age = 0;
-		this.username = null;
-		this.password = null;
+		this.username = "no username";
+		this.password = "no password";
 	}
 	
 	public People(String name, int age, String username, String password) {
@@ -52,5 +55,19 @@ public abstract class People {
 		this.password = password;
 	}
 	
-	public abstract String toString();
+	public String toString() {
+		return "Name: " + this.name + 
+				"\nAge: " + this.age + 
+				"\nUsername: " + this.username + 
+				"\nPassword: " + this.password;
+	}
+	
+	public JSONObject getJSON() throws Exception {
+		JSONObject ret = new JSONObject();
+		ret.put("name", this.getName());
+		ret.put("age", this.getAge());
+		ret.put("username", this.getUsername());
+		ret.put("password", this.getPassword());
+		return ret;
+	}
 }
