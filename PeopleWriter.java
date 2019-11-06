@@ -3,8 +3,6 @@ package Library247;
 import java.io.FileWriter;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import java.util.ArrayList;
 
 public class PeopleWriter {
 	
