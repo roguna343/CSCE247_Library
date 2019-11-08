@@ -1,25 +1,31 @@
 package CSCE247_Library;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 public class Librarian extends People {
-	public boolean isAdmin;
+	private boolean isAdmin;
 	
 	public Librarian() {
 		super();
-		this.isAdmin = false;
+		this.isAdmin = true;
 	}
 	
-	public Librarian(boolean admin) {
-		this.getName();
-		this.getAge();
-		this.getUsername();
-		this.getPassword();
+	public Librarian(String name, int age, String username, String password, 
+			boolean admin) {
+		super(name, age, username, password);
 		this.isAdmin = admin;
 	}
-	public void addItem(Item anItem) {
+	
+	public static double addFine(double accFine) {
+		double fines = 5.00;
+		fines = accFine;
 		
+		return fines;
 	}
 	
-	public void remove(Item anItem) {
+	public void viewDatabase(PeopleWriter per) {
 		
 	}
 
