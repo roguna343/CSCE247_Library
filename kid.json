@@ -1,0 +1,13 @@
+{"kids": [{
+"password":"password1",
+"name":"Rick",
+"age":15,
+"username":"ricky"
+},
+{
+"password":"password2",
+"name":"Morty",
+"age":13,
+"username":"morty"
+}
+] }

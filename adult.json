@@ -1,0 +1,13 @@
+{"adults": [{
+"password":"dundermifflin",
+"name":"Michael",
+"age":35,
+"username":"michaeljscott"
+},
+{
+"password":"schrutefarms",
+"name":"Dwight",
+"age":40,
+"username":"dwightkschrute"
+}
+] }
