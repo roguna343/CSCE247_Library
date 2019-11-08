@@ -24,12 +24,6 @@ public class Kid extends User {
 		this.parent = parent;
 	}
 	
-	public static Adult from(Kid aKid) {
-		Adult toAdult = new Adult();
-		return toAdult;
-	}
-	// this causes the child to become an adult
-
 	public String toString() {
 		return null;
 	}	
