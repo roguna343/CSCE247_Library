@@ -54,6 +54,12 @@ public abstract class People {
 		this.password = password;
 	}
 	
+	public static Adult from(Kid aKid) {
+		Adult toAdult = new Adult();
+		return toAdult;
+	}
+	// this causes the child to become an adult
+	
 	public JSONObject getJSON() throws Exception {
 		JSONObject ret = new JSONObject();
 		ret.put("name", this.getName());
