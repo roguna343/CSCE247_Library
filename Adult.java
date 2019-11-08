@@ -9,9 +9,10 @@ public class Adult extends User {
 	}
 	
 	public Adult(String name, int age, String username, String password, 
-			Item[] checkedItem, double fines, boolean enabled,
+			Item[] checkedItem, int birthday, double fines, boolean enabled,
 			boolean hasKids) {
-		super(name, age, username, password, checkedItem, fines, enabled);
+		super(name, age, username, password, checkedItem, birthday, fines,
+				enabled);
 		this.hasKids = false;
 	}
 	
