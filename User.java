@@ -1,7 +1,8 @@
-package Library247;
+package CSCE247_Library;
+
+import java.util.ArrayList;
 
 public abstract class User extends People {
-
 	public static final int LIMIT = 10;
 	public Item[] checkedItem;
 	public int Birthday;
@@ -17,18 +18,14 @@ public abstract class User extends People {
 	}
 	
 	public User(String name, int age, String username, String password, 
-		Item[] checkedItem, int birthday, double fines,
-		boolean enabled) {
-		this.getName();
-		this.getAge();
-		this.getUsername();
-		this.getPassword();
+			Item[] checkedItem, int birthday, double fines, boolean enabled) {
+		super(name, age, username, password);
 		this.checkedItem = checkedItem;
-		this.Birthday = Birthday;
+		this.Birthday = birthday;
 		this.fines = fines;
-		this.enabled = enabled;	
+		this.enabled = enabled;
 	}
-	
+
 	public Item[] getCheckedItem() {
 		return checkedItem;
 	}
@@ -37,11 +34,11 @@ public abstract class User extends People {
 		this.checkedItem = checkedItem;
 	}
 
-	public String getBirthday() {
+	public int getBirthday() {
 		return Birthday;
 	}
 
-	public void setBirthday(String birthday) {
+	public void setBirthday(int birthday) {
 		Birthday = birthday;
 	}
 
@@ -65,19 +62,18 @@ public abstract class User extends People {
 	 * Need a database for this
 	 */
 	public void checkOut(Item checkedOutItem) {
-		
+		ArrayList<Item> withdraw = new ArrayList<Item>();
 	}
 	
 	public void checkIn(Item checkedInItem) {
-		
+		ArrayList<Item> deposit = new ArrayList<Item>();
 	}
 	
 	public void donate(Item aDonation) {
-		
+		ArrayList<Item> donation = new ArrayList<Item>();
 	}
 	
 	public void getFees() {
 		
 	}
-
 }
