@@ -1,28 +1,38 @@
+{"book":[
 {
-	"book": [
-		{
-			"year": 0,
-			"author": "No author",
-			"borrower": [
-			],
-			"edition": "No edition",
-			"title": "No title",
-			"type": "No type",
-			"pages": 0,
-			"series": "No series",
-			"ratings": [
-				0,
-				0
-			],
-			"awards": [
-			],
-			"genre": [
-				null,
-				null
-			],
-			"publisher": [
-			],
-			"desc": "No desc"
-		}
-	]
+"year":0,
+"author":"No author",
+"borrower":[["Sally",
+"14"],["Brian",
+"12"]],
+"edition":"No edition",
+"title":"No title",
+"type":"No type",
+"pages":0,
+"series":"No series",
+"ratings":[0,0],
+"awards":[""],
+"genre":["null",
+"null"],
+"publisher":[""],
+"desc":"No desc"
+},
+{
+"year":0,
+"author":"No author",
+"borrower":[["Sally",
+"14"],["Brian",
+"12"]],
+"edition":"No edition",
+"title":"No title",
+"type":"No type",
+"pages":0,
+"series":"No series",
+"ratings":[0,0],
+"awards":[""],
+"genre":["null",
+"null"],
+"publisher":[""],
+"desc":"No desc"
 }
+]}

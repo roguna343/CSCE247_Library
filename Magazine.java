@@ -2,7 +2,6 @@ package Library247;
 
 import java.util.LinkedList;
 import org.json.*;
-import org.json.simple.JSONObject;
 
 public class Magazine extends Item {
 	//Variables

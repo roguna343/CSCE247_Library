@@ -1,7 +1,7 @@
 package Library247;
 
 import java.util.LinkedList;
-import org.json.simple.JSONObject;
+import org.json.*;
 
 public class Book extends Item {
 	
@@ -20,11 +20,14 @@ public class Book extends Item {
 		this.publisher = new LinkedList<String>();
 		this.edition = "No edition";
 		this.type = "No type";
+		String temp[] = { "Sally", "14" };
+		String temp2[] = { "Brian" , "12" };
+		this.borrower.add(temp);
+		this.borrower.add(temp2);
+		
 	}
 
-	public Book(String title, String author, int year, String[] genre, String desc, 
-			LinkedList<String[]> borrower, String series, double[] ratings, int pages, 
-			LinkedList<String> awards, LinkedList<String> publisher, String edition, String type) {
+	public Book(String title, String author, int year, String[] genre, String desc, LinkedList<String[]> borrower, String series, double[] ratings, int pages, LinkedList<String> awards, LinkedList<String> publisher, String edition, String type) {
 		super(title, author, year, genre, desc, borrower, series, ratings);
 		this.pages = pages;
 		this.awards = awards;
@@ -69,11 +72,6 @@ public class Book extends Item {
 	public String getType() {
 		return type;
 	}
-	/*
-	enum bookType {
-		noType, hardback, paperback, audiobook, ebook;
-	}
-	*/
 
 	public void setType(String type) {
 		if (type.toLowerCase().equals("hardback")) {

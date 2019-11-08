@@ -1,0 +1,17 @@
+{"magazine":[
+{
+"issue":["null",
+"null"],
+"year":0,
+"author":"No author",
+"series":"No series",
+"ratings":[0,0],
+"genre":["null",
+"null"],
+"borrower":[[""]],
+"isMature":false,
+"title":"No title",
+"articles":0,
+"desc":"No desc"
+}
+]}
