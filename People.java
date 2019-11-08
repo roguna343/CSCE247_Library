@@ -9,17 +9,17 @@ public abstract class People {
 	private String password;
 	
 	public People() {
-		this.name = null;
+		this.name = "No name";
 		this.age = 0;
-		this.username = null;
-		this.password = null;
+		this.username = "No username";
+		this.password = "No password";
 	}
 	
-	public People(String name, int age, String[] loginCred) {
-		this.name = null;
+	public People(String name, int age, String username, String password) {
+		this.name = name;
 		this.age = 0;
-		this.username = null;
-		this.password = null;
+		this.username = username;
+		this.password = password;
 	}
 
 	public String getName() {
@@ -54,18 +54,5 @@ public abstract class People {
 		this.password = password;
 	}
 	
-	public static Adult from(Kid aKid) {
-		Adult toAdult = new Adult();
-		return toAdult;
-	}
-	// this causes the child to become an adult
-	
-	public JSONObject getJSON() throws Exception {
-		JSONObject ret = new JSONObject();
-		ret.put("name", this.getName());
-		ret.put("age", this.getAge());
-		ret.put("username", this.getUsername());
-		ret.put("password", this.getPassword());
-		return ret;
-	}
+	public abstract JSONObject getJSON() throws Exception;
 }
