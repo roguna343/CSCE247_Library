@@ -4,19 +4,21 @@ public abstract class User extends People {
 
 	public static final int LIMIT = 10;
 	public Item[] checkedItem;
-	public String Birthday;
+	public int Birthday;
 	private double fines;
 	private boolean enabled;
 	
 	public User() {
 		super();
 		this.checkedItem = new Item[LIMIT];
-		this.Birthday = null;
+		this.Birthday = 0;
 		this.fines = 0.0;
 		this.enabled = false;
 	}
 	
-	public User(Item[] checkedItem, String Birthday, double fines, boolean enabled) {
+	public User(String name, int age, String username, String password, 
+		Item[] checkedItem, int birthday, double fines,
+		boolean enabled) {
 		this.getName();
 		this.getAge();
 		this.getUsername();
