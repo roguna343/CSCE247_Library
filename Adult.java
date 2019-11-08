@@ -8,19 +8,11 @@ public class Adult extends User {
 		this.hasKids = false;
 	}
 	
-	public Adult(boolean hasKids) {
-		this.getName();
-		this.getAge();
-		this.getUsername();
-		this.getPassword();
-		this.getCheckedItem();
-		this.getFines();
-		this.isEnabled();
+	public Adult(String name, int age, String username, String password, 
+			Item[] checkedItem, double fines, boolean enabled,
+			boolean hasKids) {
+		super(name, age, username, password, checkedItem, fines, enabled);
 		this.hasKids = false;
-	}
-	
-	public void payFines() {
-		
 	}
 	
 	public String toString() {
