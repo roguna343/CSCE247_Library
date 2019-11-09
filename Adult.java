@@ -1,7 +1,6 @@
 package Library247;
 
 import java.util.LinkedList;
-
 import org.json.*;
 
 public class Adult extends User {
@@ -19,16 +18,19 @@ public class Adult extends User {
 	}
 	
 	
-	public String toString() {
-		return null;
-	}
-	
-	public JSONObject getJSON() throws Exception{
+	public JSONObject getJSON() throws Exception {
 		JSONObject ret = new JSONObject();
 		ret.put("name", this.getName());
 		ret.put("age", this.getAge());
 		ret.put("username", this.getUsername());
 		ret.put("password", this.getPassword());
+		ret.put("checkedItem", this.getCheckedItem());
+		ret.put("lookForItem", this.lookForItem);
+		ret.put("birthday", this.getBirthday());
+		ret.put("fines", this.getFines());
+		ret.put("enabled", this.isEnabled());
+		ret.put("notification", this.notifications);
+		ret.put("hasKids", this.hasKids);
 		return ret;
 	}
 }
