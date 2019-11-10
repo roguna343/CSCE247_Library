@@ -9,11 +9,12 @@ public abstract class Item {
 	private String title;
 	private String author;
 	private int year;
-	protected String[] genre; //2 genres at most
+	private String[] genre; //2 genres at most
 	private String desc;
-	protected LinkedList<String[]> borrower = new LinkedList<>(); //String[2] = borrower, daysLeft
+	private LinkedList<String[]> borrower = new LinkedList<>(); //String[2] = borrower, daysLeft
 	private String series;
-	protected double[] ratings; //double[2] = overall rating, # of ratings
+	private double[] ratings; //double[2] = overall rating, # of ratings
+	private LinkedList<String> comments;
 	
 	//Constructors
 	public Item() {
@@ -23,12 +24,15 @@ public abstract class Item {
 		this.genre = new String[2];
 		this.desc = "No desc";
 		this.borrower = new LinkedList<String[]>();	
+		String[] temp = { "", ""};
+		this.borrower.add(temp);
 		this.series = "No series";
 		double[] toSet = {0, 0};
 		this.ratings = toSet;
+		this.comments = new LinkedList<String>();
 	}
 	
-	public Item(String title, String author, int year, String[] genre, String desc, LinkedList<String[]> borrower, String series, double[] ratings) {
+	public Item(String title, String author, int year, String[] genre, String desc, LinkedList<String[]> borrower, String series, double[] ratings, LinkedList<String> comments) {
 		this.title = title;
 		this.author = author;
 		this.year = year;
@@ -37,6 +41,7 @@ public abstract class Item {
 		this.borrower = borrower;
 		this.series = series;
 		this.ratings = ratings;
+		this.comments = comments;
 	}
 	
 	//Getters and Setters
@@ -152,26 +157,18 @@ public abstract class Item {
 		this.ratings = ratings;
 	}
 	
+	public LinkedList<String> getComments()
+	{
+		return this.comments;
+	}
+	
+	public void setComments(LinkedList<String> newComment) {
+		this.comments = newComment;
+	}
+	
 	//Methods
 	public int getQuantity() {
 		return this.getBorrower().size();
-	}
-	
-	public void increaseQuantity()
-	{
-		LinkedList<String[]> toSet = this.getBorrower();
-		String[] toAdd = new String[2];
-		toSet.add(toAdd);
-		this.setBorrower(toSet);
-	}
-	
-	public void decreaseQuantity(int index)
-	{
-		if (index > 0 && index <= this.getQuantity()) {
-			LinkedList<String[]> toSet = this.getBorrower();
-			toSet.remove(index);
-			this.setBorrower(toSet);
-		}
 	}
 	
 	public void updateRatings(double given)

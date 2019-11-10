@@ -20,15 +20,10 @@ public class Book extends Item {
 		this.publisher = new LinkedList<String>();
 		this.edition = "No edition";
 		this.type = "No type";
-		String temp[] = { "Sally", "14" };
-		String temp2[] = { "Brian" , "12" };
-		this.borrower.add(temp);
-		this.borrower.add(temp2);
-		
 	}
 
-	public Book(String title, String author, int year, String[] genre, String desc, LinkedList<String[]> borrower, String series, double[] ratings, int pages, LinkedList<String> awards, LinkedList<String> publisher, String edition, String type) {
-		super(title, author, year, genre, desc, borrower, series, ratings);
+	public Book(String title, String author, int year, String[] genre, String desc, LinkedList<String[]> borrower, String series, double[] ratings, LinkedList<String> comments, int pages, LinkedList<String> awards, LinkedList<String> publisher, String edition, String type) {
+		super(title, author, year, genre, desc, borrower, series, ratings, comments);
 		this.pages = pages;
 		this.awards = awards;
 		this.publisher = publisher;
@@ -94,8 +89,7 @@ public class Book extends Item {
 		}
 	}
 	
-	public JSONObject getJSON() throws Exception
-	{
+	public JSONObject getJSON() throws Exception {
 		JSONObject ret = new JSONObject();
 		ret.put("title", this.getTitle());
 		ret.put("author", this.getAuthor());
@@ -105,6 +99,7 @@ public class Book extends Item {
 		ret.put("borrower", this.getBorrower());
 		ret.put("series", this.getSeries());
 		ret.put("ratings", this.getRatings());
+		ret.put("comments", this.getComments());
 		ret.put("pages", this.getPages());
 		ret.put("awards", this.getAwards());
 		ret.put("publisher", this.getAwards());

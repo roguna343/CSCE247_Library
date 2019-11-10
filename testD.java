@@ -1,10 +1,7 @@
 package Library247;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import org.json.simple.*;
-import org.json.simple.parser.JSONParser;
 
 public class testD {
 	
@@ -39,14 +36,73 @@ public class testD {
 			//String desc =/*
 			*/
 			Library test = new Library();
-			test.saveData();
+			//test.closeLibrary();
+			/*
+			User test2 = new User();
+			test2.setName("billy");
+			test2.checkout(test.inv.get(0), 2);
+			System.out.println(test2.getCheckedItem());
+			test2.checkIn(test.inv.get(0));
+			System.out.println(test2.getCheckedItem());
+			System.out.println(test.inv.get(0).getQuantity());
+			test.saveData();*/
 			
-			
-			
+			/*User a = new Adult();
+			a.setAge(28);
+			a.setName("JJ");
+			LinkedList<String> temp = new LinkedList<>();
+			temp.add("e rated");
+			temp.add("king deedeedee");
+			a.setCheckedItem(temp);
+			FileWriter file = new FileWriter("src/Library247/adults.json");
+			file.write("{\"adult\":[\n");
+			file.write(prettify(a.getJSON().toString()));
+			file.write("\n]}");
+			file.close();*/
+			User k = new Kid();
+			User a = new Adult();
+			System.out.println(k.getClass().equals(a.getClass()));
 		}
 		catch (Exception e)
 		{
 			System.out.println(e);
 		}
 	}
+	/*
+	public static String prettify(String toEdit) {
+		return toEdit.replace(",\"", ",\n\"").replace("{", "{\n").replace("}", "\n}");
+	}
+	
+	public static String[] splitify1(String toEdit) {
+		return toEdit.replace("[", "").replace("]", "").split(",");
+	}
+	
+	public static double[] splitify2(String toEdit) {
+		String[] temp = toEdit.replace("[", "").replace("]", "").split(",");
+		double a = Double.parseDouble(temp[0]);
+		double b = Double.parseDouble(temp[1]);
+		double[] toRet = {a, b};
+		return toRet;
+	}
+	
+	public static LinkedList<String> splitify3(String toEdit) {
+		String[] temp = toEdit.replace("[", "").replace("]", "").split(",");
+		LinkedList<String> toRet = new LinkedList<>();
+		for (int a = 0; a < temp.length; a++)
+		{
+			toRet.add(temp[a]);
+		}
+		return toRet;
+	}
+	
+	public static LinkedList<String[]> splitify4(String toEdit) {
+		String[] temp = toEdit.replace("[[", "[").replace("]]", "]").replace("],[", "] [").split(" ");
+		LinkedList<String[]> toRet = new LinkedList<>();
+		for (int a = 0; a < temp.length; a++)
+		{
+			toRet.add(splitify1(temp[a]));
+		}
+		return toRet;
+	}*/
 }
+

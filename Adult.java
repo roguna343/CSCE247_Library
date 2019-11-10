@@ -5,7 +5,7 @@ import org.json.*;
 
 public class Adult extends User {
 	
-	public boolean hasKids;
+	private boolean hasKids;
 	
 	public Adult() {
 		super();
@@ -17,6 +17,16 @@ public class Adult extends User {
 		this.hasKids = false;
 	}
 	
+	
+	public boolean getHasKids()
+	{
+		return this.hasKids;
+	}
+	
+	public void setHasKids(boolean setTo)
+	{
+		this.hasKids = setTo;
+	}
 	
 	public JSONObject getJSON() throws Exception {
 		JSONObject ret = new JSONObject();
@@ -31,6 +41,16 @@ public class Adult extends User {
 		ret.put("enabled", this.isEnabled());
 		ret.put("notification", this.notifications);
 		ret.put("hasKids", this.hasKids);
+		return ret;
+	}
+
+	@Override
+	public String getInfo() {
+		String ret = "Name: " + this.getName() + "\n"
+				+ "Age: " + this.getAge() + "\n"
+				+ "Birthday: " + this.getBirthday() + "\n"
+				+ "Fines: " + this.getFines() + "\n"
+				+ "Has Kids: " + this.getHasKids();
 		return ret;
 	}
 }

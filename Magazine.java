@@ -17,8 +17,8 @@ public class Magazine extends Item {
 		this.isMature = false;
 	}
 	
-	public Magazine(String title, String author, int year, String[] genre, String desc, LinkedList<String[]> borrower, String series, double[] ratings, int articles, String[] issue, boolean isMature) {
-		super(title, author, year, genre, desc, borrower, series, ratings);
+	public Magazine(String title, String author, int year, String[] genre, String desc, LinkedList<String[]> borrower, String series, double[] ratings, LinkedList<String> comments, int articles, String[] issue, boolean isMature) {
+		super(title, author, year, genre, desc, borrower, series, ratings, comments);
 		this.articles = articles;
 		this.issue = issue;
 		this.isMature = isMature;
@@ -60,6 +60,7 @@ public class Magazine extends Item {
 		ret.put("borrower", this.getBorrower());
 		ret.put("series", this.getSeries());
 		ret.put("ratings", this.getRatings());
+		ret.put("comments", this.getComments());
 		ret.put("articles", this.getArticles());
 		ret.put("issue", this.getIssue());
 		ret.put("isMature", this.getMature());

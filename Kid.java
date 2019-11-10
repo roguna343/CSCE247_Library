@@ -6,7 +6,7 @@ import org.json.*;
 
 public class Kid extends User {
 	
-	public String parent;
+	private String parent;
 	
 	public Kid() {
 		super();
@@ -44,6 +44,16 @@ public class Kid extends User {
 		ret.put("enabled", this.isEnabled());
 		ret.put("notification", this.notifications);
 		ret.put("parent", this.getParent());
+		return ret;
+	}
+	
+	@Override
+	public String getInfo() {
+		String ret = "Name: " + this.getName() + "\n"
+				+ "Age: " + this.getAge() + "\n"
+				+ "Birthday: " + this.getBirthday() + "\n"
+				+ "Fines: " + this.getFines() + "\n"
+				+ "Parent: " + this.getParent();
 		return ret;
 	}
 }

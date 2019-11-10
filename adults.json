@@ -2,14 +2,40 @@
 {
 "birthday":0,
 "hasKids":false,
-"password":"No password",
+"password":"pppp",
 "fines":0,
 "name":"JJ",
 "checkedItem":["e rated",
 "king deedeedee"],
-"lookForItem":[],
-"age":28,
-"enabled":false,
-"username":"No username"
+"lookForItem":[""],
+"age":0,
+"enabled":true,
+"username":"pppp"
+},
+{
+"birthday":23,
+"notification":"",
+"hasKids":false,
+"password":"bbbb",
+"fines":0,
+"name":"abi",
+"checkedItem":[""],
+"lookForItem":[""],
+"age":0,
+"enabled":true,
+"username":"bbbb"
+},
+{
+"birthday":22,
+"notification":"",
+"hasKids":false,
+"password":"abe",
+"fines":0,
+"name":"abe",
+"checkedItem":[""],
+"lookForItem":[""],
+"age":0,
+"enabled":true,
+"username":"abe"
 }
 ]}
