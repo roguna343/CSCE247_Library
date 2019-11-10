@@ -95,5 +95,25 @@ public class System_Driver {
 		boolean hasKids = Boolean.parseBoolean(keyboard.nextLine());
 		Adult toAdd = new Adult(name, age, username, password, checkedItem, lookForItem, birthday, 0, true, "", hasKids);
 		return toAdd;
+		
+	public static Kid createKidAccount(Scanner keyboard) {
+		System.out.println("Please enter the following parameters to create an account.");
+		System.out.println("Name:");
+		String name = keyboard.nextLine();
+		System.out.println("Age:");
+		int age = Integer.parseInt(keyboard.nextLine());
+		System.out.println("Username:");
+		String username = keyboard.nextLine();
+		System.out.println("Password:");
+		String password = keyboard.nextLine();
+		LinkedList<String> checkedItem = new LinkedList<>();
+		LinkedList<String> lookForItem = new LinkedList<>();
+		System.out.println("Birthday:");
+		int birthday = Integer.parseInt(keyboard.nextLine());
+		System.out.println("Has Kids:");
+		boolean hasKids = Boolean.parseBoolean(keyboard.nextLine());
+		Kid toAdd = new Kid(name, age, username, password, checkedItem, lookForItem, birthday, 0, 
+				true, "", Adult.class.getName());
+		return toAdd;
 	}
 }
