@@ -95,6 +95,7 @@ public class System_Driver {
 		boolean hasKids = Boolean.parseBoolean(keyboard.nextLine());
 		Adult toAdd = new Adult(name, age, username, password, checkedItem, lookForItem, birthday, 0, true, "", hasKids);
 		return toAdd;
+	}
 		
 	public static Kid createKidAccount(Scanner keyboard) {
 		System.out.println("Please enter the following parameters to create an account.");
