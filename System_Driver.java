@@ -116,6 +116,7 @@ public class System_Driver {
 		Kid toAdd = new Kid(name, age, username, password, checkedItem, lookForItem, birthday, 0, 
 				true, "", Adult.class.getName());
 		return toAdd;
+	}
 		
 	public static Book createBook(Scanner keyboard) {
 		Book ret = new Book();
