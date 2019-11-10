@@ -167,4 +167,76 @@ public class System_Driver {
 		boolean hasKids = Boolean.parseBoolean(keyboard.nextLine());
 		return ret;
 	}
+	public static Video createVideo(Scanner keyboard) {
+		Video ret = new Video();
+		System.out.println("Please enter the following parameters to create a Book.");
+		System.out.println("Title:");
+		ret.setTitle(keyboard.nextLine());
+		System.out.println("Author:");
+		ret.setAuthor(keyboard.nextLine());
+		System.out.println("Year:");
+		ret.setYear(Integer.parseInt(keyboard.nextLine()));
+		System.out.println("Genre:");
+		ret.setGenre(keyboard.nextLine(), Integer.parseInt(keyboard.nextLine()));
+		System.out.println("Description:");
+		ret.setDesc(keyboard.nextLine());
+		LinkedList<String> borrower = new LinkedList<>();
+		System.out.println("Series:");
+		ret.setSeries(keyboard.nextLine());
+		double[] ratings = {0, 0};
+		LinkedList<String> comments = new LinkedList<>();
+		System.out.println("Time:");
+		ret.setTime(Integer.parseInt(keyboard.nextLine()));
+		System.out.println("Enter all of the awards of the Video:"
+				+ "\n(Note enter \"done\" to move to the next parameter)");
+		LinkedList<String> awards = new LinkedList<>();
+		while(true) {
+			if(keyboard.nextLine().equalsIgnoreCase("done")) {
+				break;
+			}
+			awards.add(keyboard.nextLine());
+		}
+		System.out.println("Enter any Studeios for the Video: \n(Note enter\"done\" to move on)");
+		LinkedList<String> studios = new LinkedList<>();
+		while(true) {
+			if(keyboard.nextLine().equalsIgnoreCase("done")) {
+				break;
+			}
+			studios.add(keyboard.nextLine());
+		}
+		System.out.println("Does the video have any Sister Movies?");
+		ret.setHasSisterMovies(Boolean.parseBoolean(keyboard.nextLine()));
+		return ret;
+	}
+	
+	public static Magazine createMagazine(Scanner keyboard) {
+		Magazine ret = new Magazine();
+		System.out.println("Please enter the following parameters to create a Book.");
+		System.out.println("Title:");
+		ret.setTitle(keyboard.nextLine());
+		System.out.println("Author:");
+		ret.setAuthor(keyboard.nextLine());
+		System.out.println("Year:");
+		ret.setYear(Integer.parseInt(keyboard.nextLine()));
+		System.out.println("Genre:");
+		ret.setGenre(keyboard.nextLine(), Integer.parseInt(keyboard.nextLine()));
+		System.out.println("Description:");
+		ret.setDesc(keyboard.nextLine());
+		LinkedList<String> borrower = new LinkedList<>();
+		System.out.println("Series:");
+		ret.setSeries(keyboard.nextLine());
+		double[] ratings = {0, 0};
+		LinkedList<String> comments = new LinkedList<>();
+		System.out.println("Articles:");
+		ret.setArticles(Integer.parseInt(keyboard.nextLine()));
+		System.out.println("Issue month:");
+		String month = keyboard.nextLine();
+		System.out.println("Issue year:");
+		String year = keyboard.nextLine();
+		String [] issue = {month, year};
+		ret.setIssue(issue);
+		System.out.println("Is this magazine mature: ");
+		ret.setMature(Boolean.parseBoolean(keyboard.nextLine()));
+		return ret;
+	}
 }
