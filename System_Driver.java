@@ -6,8 +6,8 @@ import java.util.Scanner;
 public class System_Driver {
 
 	public static void main(String[] args) throws Exception {
-		//final String mod = "java2easy";
-		//final String lbrP = "c++2hard";
+		final String lu = "java2easy";
+		final String lp = "c++2hard";
 		//Adult sA = new Adult();
 		//Kid sK = new Kid();
 		Library lib = new Library();
@@ -23,33 +23,77 @@ public class System_Driver {
 			choice = Integer.parseInt(keyboard.nextLine());
 			switch (choice) {
 				case 1:
+					System.out.println("Please enter the following paremeters.");
+					username = keyboard.nextLine();
+					System.out.println("Username:");
+					password = keyboard.nextLine();
 					break;
 				case 2:
-					System.out.println("Please enter the following parameters to create an account:");
-					System.out.println("Name");
-					String name = keyboard.nextLine();
-					System.out.println("Age:");
-					int age = Integer.parseInt(keyboard.nextLine());
-					System.out.println("Username:");
-					username = keyboard.nextLine();
-					System.out.println("Password:");
-					password = keyboard.nextLine();
-					LinkedList<String> checkedItem = new LinkedList<>();
-					LinkedList<String> lookForItem = new LinkedList<>();
-					System.out.println("Birthday:");
-					int birthday = Integer.parseInt(keyboard.nextLine());
-					System.out.println("Has Kids:");
-					boolean hasKids = Boolean.parseBoolean(keyboard.nextLine());
-					Adult toAdd = new Adult(name, age, username, password, checkedItem, lookForItem, birthday, 0, true, "", hasKids);
+					Adult toAdd = createAdultAccount(keyboard);
 					lib.addUser(toAdd);
 					lib.save();
 					continue;
 				default:
 					System.out.println("Exiting the program.");
 					System.exit(1);
-					break;
 			}
-		}
-		
+			//Librarian Commands
+			if (username.equals(lu) && username.equals(lp)) {
+				System.out.println("Logged in as Librarian.");
+				while (true) {
+					System.out.println("Select the index of cmd:"
+							+ "\n1. View Patron summary"
+							+ "\n2. View Inventory summary"
+							+ "\n3. Add new Item"
+							+ "\n4. Add copy of pre-existing Item"
+							+ "\n5. Remove a book"
+							+ "\n6. Logout");
+					choice = Integer.parseInt(keyboard.nextLine());
+					if (choice == 1) {
+						
+					}
+					else if (choice == 2) {
+						
+					}
+					else if (choice == 3) {
+						
+					}
+					else if (choice == 4) {
+						
+					}
+					else if (choice == 5) {
+						
+					}
+					else {
+						
+					}
+					
+				}
+			}
+			//User commands
+			else {
+				
+			}
+		}	
+	}
+	
+	public static Adult createAdultAccount(Scanner keyboard) {
+		System.out.println("Please enter the following parameters to create an account.");
+		System.out.println("Name:");
+		String name = keyboard.nextLine();
+		System.out.println("Age:");
+		int age = Integer.parseInt(keyboard.nextLine());
+		System.out.println("Username:");
+		String username = keyboard.nextLine();
+		System.out.println("Password:");
+		String password = keyboard.nextLine();
+		LinkedList<String> checkedItem = new LinkedList<>();
+		LinkedList<String> lookForItem = new LinkedList<>();
+		System.out.println("Birthday:");
+		int birthday = Integer.parseInt(keyboard.nextLine());
+		System.out.println("Has Kids:");
+		boolean hasKids = Boolean.parseBoolean(keyboard.nextLine());
+		Adult toAdd = new Adult(name, age, username, password, checkedItem, lookForItem, birthday, 0, true, "", hasKids);
+		return toAdd;
 	}
 }
