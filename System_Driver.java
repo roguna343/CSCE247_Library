@@ -116,5 +116,54 @@ public class System_Driver {
 		Kid toAdd = new Kid(name, age, username, password, checkedItem, lookForItem, birthday, 0, 
 				true, "", Adult.class.getName());
 		return toAdd;
+		
+	public static Book createBook(Scanner keyboard) {
+		Book ret = new Book();
+		System.out.println("Please enter the following parameters to create a Book.");
+		System.out.println("Title:");
+		ret.setTitle(keyboard.nextLine());
+		System.out.println("Author:");
+		ret.setAuthor(keyboard.nextLine());
+		System.out.println("Year:");
+		ret.setYear(Integer.parseInt(keyboard.nextLine()));
+		System.out.println("Genre:");
+		ret.setGenre(keyboard.nextLine(), Integer.parseInt(keyboard.nextLine()));
+		System.out.println("Description:");
+		ret.setDesc(keyboard.nextLine());
+		LinkedList<String> borrower = new LinkedList<>();
+		System.out.println("Series:");
+		ret.setSeries(keyboard.nextLine());
+		double[] ratings = {0, 0};
+		LinkedList<String> comments = new LinkedList<>();
+		System.out.println("Pages:");
+		ret.setPages(Integer.parseInt(keyboard.nextLine()));
+		System.out.println("Enter all of the awards of the book:"
+				+ "\n(Note enter \"done\" to move to the next parameter)");
+		LinkedList<String> awards = new LinkedList<>();
+		while(true) {
+			if(keyboard.nextLine().equalsIgnoreCase("done")) {
+				break;
+			}
+			awards.add(keyboard.nextLine());
+		}
+		System.out.println("Enter any publishers for the Book: \n(Note enter\"done\" to move on)");
+		LinkedList<String> publisher = new LinkedList<>();
+		while(true) {
+			if(keyboard.nextLine().equalsIgnoreCase("done")) {
+				break;
+			}
+			publisher.add(keyboard.nextLine());
+		}
+		System.out.println("Edition of the Book");
+		ret.setEdition(keyboard.nextLine());
+		System.out.println("Type of Book, Please select Hardback, Paperback, ebook, audio: ");
+		ret.setType(keyboard.nextLine());
+		LinkedList<String> checkedItem = new LinkedList<>();
+		LinkedList<String> lookForItem = new LinkedList<>();
+		System.out.println("Birthday:");
+		int birthday = Integer.parseInt(keyboard.nextLine());
+		System.out.println("Has Kids:");
+		boolean hasKids = Boolean.parseBoolean(keyboard.nextLine());
+		return ret;
 	}
 }
