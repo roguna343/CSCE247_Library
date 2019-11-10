@@ -7,13 +7,13 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class DataReader {
-	private static final String BOOK_LIST = "Data.json";
+	private static final String BOOK_LIST = "src/Data.json";
 	
 	public static ArrayList<Book> loadItems() {
 		ArrayList<Book> item = new ArrayList<Book>();
 		
 		try {
-			FileReader reader = new FileReader("src/Data.json");
+			FileReader reader = new FileReader(BOOK_LIST);
 			JSONParser parser = new JSONParser();
 			JSONObject jsonData = (JSONObject)new JSONParser().parse(reader);
 			JSONArray itemJSON = (JSONArray)jsonData.get("item");
