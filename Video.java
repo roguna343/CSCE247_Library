@@ -78,4 +78,23 @@ public class Video extends Item {
 		ret.put("hasSisterMovies", this.isHasSisterMovies());
 		return ret;
 	}
+	
+	public String getInfo() {
+		String ret = "Title: " + this.getTitle()
+		+ "\nAuthor: " + this.getAuthor()
+		+ "\nYear: " + this.getYear()
+		+ "\nGenre 1: " + this.getGenre()[0] + " || Genre 2: " + this.getGenre()[1]
+		+ "\nDescription: " + this.getDesc()
+		+ "\nSeries: " + this.getSeries()
+		+ "\nRatings: " + this.getRatings()[0]
+		+ "\nTime: " + this.getTime()
+		+ "\nStudios: " + this.getStudios()
+		+ "\nSister Movies: " + this.isHasSisterMovies()
+		+ "\nComments: ";
+		for (int a = 0; a < this.getComments().size(); a++)
+		{
+			ret += "\n" + this.getComments().get(a);
+		}
+		return ret;
+	}
 }

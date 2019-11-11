@@ -159,7 +159,7 @@ public abstract class Item {
 	
 	public LinkedList<String> getComments()
 	{
-		return this.comments;
+		return comments;
 	}
 	
 	public void setComments(LinkedList<String> newComment) {
@@ -182,4 +182,6 @@ public abstract class Item {
 	}
 		
 	public abstract JSONObject getJSON() throws Exception;
+	
+	public abstract String getInfo();
 }

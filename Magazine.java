@@ -66,4 +66,23 @@ public class Magazine extends Item {
 		ret.put("isMature", this.getMature());
 		return ret;
 	}
+	
+	public String getInfo() {
+		String ret = "Title: " + this.getTitle()
+		+ "\nAuthor: " + this.getAuthor()
+		+ "\nYear: " + this.getYear()
+		+ "\nGenre 1: " + this.getGenre()[0] + " || Genre 2: " + this.getGenre()[1]
+		+ "\nDescription: " + this.getDesc()
+		+ "\nSeries: " + this.getSeries()
+		+ "\nRatings: " + this.getRatings()[0]
+		+ "\nArticles: " + this.getArticles()
+		+ "\nMature: " + this.getMature()
+		+ "\nIssue: " + this.getIssue()[0] + " " + this.getIssue()[1]
+		+ "\nComments: ";
+		for (int a = 0; a < this.getComments().size(); a++)
+		{
+			ret += "\n" + this.getComments().get(a);
+		}
+		return ret;
+	}
 }

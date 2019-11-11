@@ -1,12 +1,14 @@
 {"book":[
 {
+"comments":[""],
 "year":0,
 "author":"No author",
 "borrower":[["",
 ""],["",
+""],["",
 ""]],
 "edition":"No edition",
-"title":"title2",
+"title":"book1",
 "type":"No type",
 "pages":0,
 "series":"No series",
@@ -18,21 +20,40 @@
 "desc":"No desc"
 },
 {
+"comments":["",
+"very good"],
 "year":0,
 "author":"No author",
 "borrower":[["Sally",
 "14"],["Brian",
 "12"]],
 "edition":"No edition",
-"title":"title1",
+"title":"book2",
 "type":"No type",
 "pages":0,
 "series":"No series",
-"ratings":[0,0],
+"ratings":[5,1],
 "awards":[""],
 "genre":["null",
 "null"],
 "publisher":[""],
 "desc":"No desc"
+},
+{
+"comments":[""],
+"year":33,
+"author":"33",
+"borrower":[[""]],
+"edition":"33",
+"title":"33",
+"type":"No type",
+"pages":33,
+"series":"33",
+"ratings":[0,0],
+"awards":[""],
+"genre":["Other",
+"Other"],
+"publisher":[""],
+"desc":"33"
 }
 ]}

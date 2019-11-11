@@ -13,8 +13,8 @@ public class Kid extends User {
 		this.parent = "no parent";
 	}
 	
-	public Kid(String name, int age, String username, String password, LinkedList<String> checkedItem, LinkedList<String> lookForItem, int birthday, double fines, boolean enabled, String notification, String parentName) {
-		super(name, age, username, password, checkedItem, lookForItem, birthday, fines, enabled, notification);
+	public Kid(String name, int age, String username, String password, LinkedList<String> checkedItem, LinkedList<String> lookForItem, int birthday, double fines, boolean enabled, String parentName) {
+		super(name, age, username, password, checkedItem, lookForItem, birthday, fines, enabled);
 		this.parent = parentName;
 	}
 
@@ -38,11 +38,10 @@ public class Kid extends User {
 		ret.put("username", this.getUsername());
 		ret.put("password", this.getPassword());
 		ret.put("checkedItem", this.getCheckedItem());
-		ret.put("lookForItem", this.lookForItem);
+		ret.put("lookForItem", this.getLookForItem());
 		ret.put("birthday", this.getBirthday());
 		ret.put("fines", this.getFines());
 		ret.put("enabled", this.isEnabled());
-		ret.put("notification", this.notifications);
 		ret.put("parent", this.getParent());
 		return ret;
 	}

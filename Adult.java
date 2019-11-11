@@ -12,8 +12,8 @@ public class Adult extends User {
 		this.hasKids = false;
 	}
 	
-	public Adult(String name, int age, String username, String password, LinkedList<String> checkedItem, LinkedList<String> lookForItem, int birthday, double fines, boolean enabled, String notification, boolean hasKids) {
-		super(name, age, username, password, checkedItem, lookForItem, birthday, fines, enabled, notification);
+	public Adult(String name, int age, String username, String password, LinkedList<String> checkedItem, LinkedList<String> lookForItem, int birthday, double fines, boolean enabled, boolean hasKids) {
+		super(name, age, username, password, checkedItem, lookForItem, birthday, fines, enabled);
 		this.hasKids = false;
 	}
 	
@@ -35,11 +35,10 @@ public class Adult extends User {
 		ret.put("username", this.getUsername());
 		ret.put("password", this.getPassword());
 		ret.put("checkedItem", this.getCheckedItem());
-		ret.put("lookForItem", this.lookForItem);
+		ret.put("lookForItem", this.getLookForItem());
 		ret.put("birthday", this.getBirthday());
 		ret.put("fines", this.getFines());
 		ret.put("enabled", this.isEnabled());
-		ret.put("notification", this.notifications);
 		ret.put("hasKids", this.hasKids);
 		return ret;
 	}

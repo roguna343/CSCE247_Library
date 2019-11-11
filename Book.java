@@ -107,4 +107,23 @@ public class Book extends Item {
 		ret.put("type", this.getType());
 		return ret;
 	}
-}
+	
+	public String getInfo() {
+		String ret = "Title: " + this.getTitle()
+		+ "\nAuthor: " + this.getAuthor()
+		+ "\nYear: " + this.getYear()
+		+ "\nGenre 1: " + this.getGenre()[0] + " || Genre 2: " + this.getGenre()[1]
+		+ "\nDescription: " + this.getDesc()
+		+ "\nSeries: " + this.getSeries()
+		+ "\nRatings: " + this.getRatings()[0]
+		+ "\nPages: " + this.getPages()
+		+ "\nType: " + this.getType()
+		+ "\nPublisher" + this.getPublisher()
+		+ "\nComments: ";
+		for (int a = 0; a < this.getComments().size(); a++)
+		{
+			ret += "\n" + this.getComments().get(a);
+		}
+		return ret;
+	}
+} 

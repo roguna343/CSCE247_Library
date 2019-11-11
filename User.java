@@ -3,13 +3,11 @@ package Library247;
 import java.util.LinkedList;
 
 public abstract class User extends People {
-	public static final int LIMIT = 10;
-	public LinkedList<String> checkedItem;
-	public LinkedList<String> lookForItem;
-	public int Birthday;
+	private LinkedList<String> checkedItem;
+	private LinkedList<String> lookForItem;
+	private int Birthday;
 	private double fines;
 	private boolean enabled;
-	String notifications;
 	
 	public User() {
 		super();
@@ -18,17 +16,15 @@ public abstract class User extends People {
 		this.Birthday = 0;
 		this.fines = 0.0;
 		this.enabled = false;
-		this.notifications = "";
 	}
 	
-	public User(String name, int age, String username, String password, LinkedList<String> checkedItem, LinkedList<String> lookForItem, int birthday, double fines, boolean enabled, String notification) {
+	public User(String name, int age, String username, String password, LinkedList<String> checkedItem, LinkedList<String> lookForItem, int birthday, double fines, boolean enabled) {
 		super(name, age, username, password);
 		this.checkedItem = checkedItem;
 		this.lookForItem = lookForItem;
 		this.Birthday = birthday;
 		this.fines = fines;
 		this.enabled = enabled;
-		this.notifications = notification;
 	}
 
 	public LinkedList<String> getCheckedItem() {
@@ -62,14 +58,14 @@ public abstract class User extends People {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-
-	public String getNotifications() {
-		return notifications;
+	
+	public LinkedList<String> getLookForItem() {
+		return lookForItem;
 	}
 
-	public void setNotifications(String notifications) {
-		this.notifications = notifications;
-	} 
+	public void setLookForItem(LinkedList<String> lookForItem) {
+		this.lookForItem = lookForItem;
+	}
 
 	public abstract String getInfo();
 }

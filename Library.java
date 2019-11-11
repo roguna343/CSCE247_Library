@@ -21,8 +21,8 @@ public class Library {
 	public Library() {
 		this.inv = loadInv();
 		this.usr = loadUsr();
-		Random r = new Random(365);
-		this.date = r.nextInt();
+		Random r = new Random();
+		this.date = r.nextInt(365);
 	}
 	
 	public int getDate() {
@@ -90,8 +90,38 @@ public class Library {
 		}
 	}
 	
+	public boolean isAvailable(String title) {
+		for (int a = 0; a < this.inv.size(); a++) {
+			Item temp = inv.get(a);
+			if (temp.getTitle().equalsIgnoreCase(title)) {
+				LinkedList<String[]> borrowers = temp.getBorrower();
+				for (int b = 0; b < borrowers.size(); a++) {
+					if (borrowers.get(b)[0].length() == 2) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
 	
+	public void getPatronInfo()
+	{
+		for (int a = 0; a < usr.size(); a++) {
+			System.out.println("-- Index: " + a + " --");
+			System.out.println(usr.get(a).getInfo());
+			System.out.println("-- -- --");
+		}
+	}
 	
+	public void getInventoryInfo()
+	{
+		for (int a = 0; a < inv.size(); a++) {
+			System.out.println("-- Index: " + a + " --");
+			System.out.println(inv.get(a).getInfo());
+			System.out.println("-- -- --");
+		}
+	}
 	
 	public void pushFines(Kid from) {
 		String parent = from.getParent();
@@ -125,9 +155,8 @@ public class Library {
 				int birthday = Integer.parseInt((String)adultTemp.get("birthday").toString());
 				double fines = Double.parseDouble((String)adultTemp.get("fines").toString());
 				boolean enabled = Boolean.parseBoolean((String)adultTemp.get("enabled").toString());
-				String notification = (String)adultTemp.get("notification");
 				boolean hasKids = Boolean.parseBoolean((String)adultTemp.get("hasKids").toString());
-				Adult newAdult = new Adult(name, age, username, password, checkedItem, lookForItem, birthday, fines, enabled, notification, hasKids);
+				Adult newAdult = new Adult(name, age, username, password, checkedItem, lookForItem, birthday, fines, enabled, hasKids);
 				loader.add(newAdult);
 			}
 			FileReader reader2 = new FileReader(Ak);
@@ -146,9 +175,8 @@ public class Library {
 				int birthday = Integer.parseInt((String)kidTemp.get("birthday").toString());
 				double fines = Double.parseDouble((String)kidTemp.get("fines").toString());
 				boolean enabled = Boolean.parseBoolean((String)kidTemp.get("enabled").toString());
-				String notification = (String)kidTemp.get("notification");
 				String parent = (String)kidTemp.get("parent");
-				Kid newKid = new Kid(name, age, username, password, checkedItem, lookForItem, birthday, fines, enabled, notification, parent);
+				Kid newKid = new Kid(name, age, username, password, checkedItem, lookForItem, birthday, fines, enabled, parent);
 				loader.add(newKid);
 			}
 			System.out.println("Succesfully loaded the user list with " + loader.size() + " user(s).");
@@ -204,6 +232,7 @@ public class Library {
 			JSONObject jsonData1 = (JSONObject)new JSONParser().parse(reader1);
 			JSONArray books = (JSONArray)jsonData1.get("book");
 			reader1.close();
+			System.out.println(books.size());
 			for (int a = 0; a < books.size(); a++) {
 				JSONObject bookTemp = (JSONObject)books.get(a);
 				String title = (String)bookTemp.get("title");
@@ -228,6 +257,7 @@ public class Library {
 			JSONObject jsonData2 = (JSONObject)new JSONParser().parse(reader2);
 			JSONArray videos = (JSONArray)jsonData2.get("video");
 			reader2.close();
+			System.out.println(videos.size());
 			for (int b = 0; b < videos.size(); b++) {
 				JSONObject videoTemp = (JSONObject)videos.get(b);
 				String title = (String)videoTemp.get("title");
@@ -251,6 +281,7 @@ public class Library {
 			JSONObject jsonData3 = (JSONObject)new JSONParser().parse(reader3);
 			JSONArray mags = (JSONArray)jsonData3.get("magazine");
 			reader3.close();
+			System.out.println(mags.size());
 			for (int c = 0; c < videos.size(); c++) {
 				JSONObject magTemp = (JSONObject)mags.get(c);
 				String title = (String)magTemp.get("title");
