@@ -1,15 +1,14 @@
 {"kid":[
 {
-"birthday":0,
-"parent":"billy",
-"password":"kid",
+"birthday":12,
+"parent":"sub2",
+"password":"son",
 "fines":0,
-"name":"billyy1",
-"checkedItem":["e rated",
-"king deedeedee"],
-"lookForItem":[""],
-"age":0,
+"name":"son",
+"checkedItem":[],
+"lookForItem":[],
+"age":1,
 "enabled":true,
-"username":"kid"
+"username":"son"
 }
 ]}

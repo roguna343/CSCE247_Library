@@ -3,7 +3,9 @@ package Library247;
 import java.util.LinkedList;
 import org.json.*;
 
-public class Book extends Item {
+public class Book extends Item { 
+	
+	/** All other Item child classes, and User child classes (such as Videos and Magazines) follow the logic implemented here **/
 	
 	//Variables
 	private int pages;
@@ -68,6 +70,10 @@ public class Book extends Item {
 		return type;
 	}
 
+	/**
+	 * JSON is not enum friendly, making us having to heavily filter any input for desired output later on
+	 * @param type
+	 */
 	public void setType(String type) {
 		if (type.toLowerCase().equals("hardback")) {
 			type = "Hardback";
@@ -89,6 +95,7 @@ public class Book extends Item {
 		}
 	}
 	
+	//Both methods could have been demoted to basic method instead of remaining abstract
 	public JSONObject getJSON() throws Exception {
 		JSONObject ret = new JSONObject();
 		ret.put("title", this.getTitle());

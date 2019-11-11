@@ -8,6 +8,11 @@ public class Kid extends User {
 	
 	private String parent;
 	
+	/**
+	 * Kid stands out from adult in that its gets the variable parent, and its fines act different. Kids can collect fines, but
+	 * when they are trying to pay it, it will make the parents have the fines.
+	 */
+	
 	public Kid() {
 		super();
 		this.parent = "no parent";

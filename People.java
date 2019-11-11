@@ -17,7 +17,7 @@ public abstract class People {
 	
 	public People(String name, int age, String username, String password) {
 		this.name = name;
-		this.age = 0;
+		this.age = age;
 		this.username = username;
 		this.password = password;
 	}

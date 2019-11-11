@@ -8,6 +8,12 @@ import java.util.Random;
 
 public class Library {
 	
+	/**
+	 * This is the meat and gravy of all classes. After thorough proof of concept testing, we went ahead and made a class that took the objects
+	 * prior and actually handled them as intended. This is responsible for fileIO, and OOP regarding any item or user.
+	 */
+	
+	//Addresses to read the OOP data from
 	private static final String Ab = "src/Library247/books.json";
 	private static final String Av = "src/Library247/videos.json";
 	private static final String Am = "src/Library247/magazines.json";
@@ -18,6 +24,7 @@ public class Library {
 	private int date; //0-365
 	private LinkedList<User> usr;
 	
+	//Default constructor has a new role where it automatically sets up the data upon call
 	public Library() {
 		this.inv = loadInv();
 		this.usr = loadUsr();
@@ -53,6 +60,7 @@ public class Library {
 		this.usr = usr;
 	}
 	
+	//Finds the user account associated with parameters; if wrong, return a null account with no access to anything
 	public User login(String username, String password)
 	{
 		for (int a = 0; a < usr.size(); a++) {
@@ -65,11 +73,17 @@ public class Library {
 		return ret;
 	}
 	
+	//Created to only do save functions
 	public void save() {
 		saveInv();
 		saveUsr();
 	}
 	
+	/**
+	 * These are very important methods. This ensures any changes done to a item or user will be pushed back into the library memory.
+	 * Prevents any loop holes from data not being captured as intended and allows to bandage those leaks.
+	 * @param toUpdate
+	 */
 	public void updateUser(User toUpdate) {
 		String name = toUpdate.getName();
 		for (int a = 0; a < usr.size(); a++) {
@@ -85,18 +99,19 @@ public class Library {
 		for (int a = 0; a < inv.size(); a++) {
 			if (title.equals(inv.get(a).getTitle())) {
 				inv.set(a, toUpdate);
-				return;
 			}
 		}
 	}
 	
+	//Finds if a book is available
 	public boolean isAvailable(String title) {
-		for (int a = 0; a < this.inv.size(); a++) {
+		title = title.replace("\"", "");
+		for (int a = 0; a < inv.size(); a++) {
 			Item temp = inv.get(a);
 			if (temp.getTitle().equalsIgnoreCase(title)) {
 				LinkedList<String[]> borrowers = temp.getBorrower();
-				for (int b = 0; b < borrowers.size(); a++) {
-					if (borrowers.get(b)[0].length() == 2) {
+				for (int b = 0; b < borrowers.size(); b++) {
+					if (borrowers.get(b)[0].replace("\"", "").equals("")) {
 						return true;
 					}
 				}
@@ -136,6 +151,13 @@ public class Library {
 			}
 		}
 	}
+	
+	/**
+	 * Alright, so we are aware both load functions are long and lanky and could have been split further into methods, but
+	 * due to time constraints, we could not split it. Really, it takes length in only classifying each JSON variable, so it
+	 * is still good code
+	 * @return
+	 */
 	
 	private LinkedList<User> loadUsr() {
 		try {
@@ -179,7 +201,6 @@ public class Library {
 				Kid newKid = new Kid(name, age, username, password, checkedItem, lookForItem, birthday, fines, enabled, parent);
 				loader.add(newKid);
 			}
-			System.out.println("Succesfully loaded the user list with " + loader.size() + " user(s).");
 			return loader;
 		}
 		catch (Exception e) {
@@ -204,19 +225,22 @@ public class Library {
 					adults += prettify(toWrite.replace("\\\"",  "")) + ",\n";
 				}
 			}
-			adults = adults.substring(0, adults.length()-2);
-			kids = kids.substring(0, kids.length()-2);
+			if (adults.length() > 2) {
+				adults = adults.substring(0, adults.length()-2);
+			}
+			if (kids.length() > 2) {
+				kids = kids.substring(0, kids.length()-2);
+			}
 			FileWriter wa = new FileWriter(Aa);
 			wa.write("{\"adult\":[\n");
 			FileWriter wk = new FileWriter(Ak);
 			wk.write("{\"kid\":[\n");
 			adults += "\n]}";
 			kids += "\n]}";
-			wa.write(adults);
-			wk.write(kids);
+			wa.write(adults.replace("\"\"", ""));
+			wk.write(kids.replace("\"\"", ""));
 			wa.close();
 			wk.close();
-			System.out.println("Succesfully saved the user list of " + usr.size() + " user(s).");
 		}
 		catch (Exception e) {
 			System.out.println("Error in saving the user data.");
@@ -232,74 +256,78 @@ public class Library {
 			JSONObject jsonData1 = (JSONObject)new JSONParser().parse(reader1);
 			JSONArray books = (JSONArray)jsonData1.get("book");
 			reader1.close();
-			System.out.println(books.size());
-			for (int a = 0; a < books.size(); a++) {
-				JSONObject bookTemp = (JSONObject)books.get(a);
-				String title = (String)bookTemp.get("title");
-				String author = (String)bookTemp.get("author");
-				int year = Integer.parseInt((String) bookTemp.get("year").toString());
-				String[] genre = splitify1((String)bookTemp.get("genre").toString());
-				String desc = (String)bookTemp.get("desc");		
-				LinkedList<String[]> borrower = splitify4((String)bookTemp.get("borrower").toString());
-				String series = (String)bookTemp.get("series");
-				double[] ratings = splitify2((String)bookTemp.get("ratings").toString());
-				LinkedList<String> comments = splitify3((String)bookTemp.get("comments").toString());
-				int pages = Integer.parseInt((String) bookTemp.get("pages").toString());
-				LinkedList<String> awards = splitify3((String)bookTemp.get("awards").toString());
-				LinkedList<String> publisher = splitify3((String)bookTemp.get("publisher").toString());
-				String edition = (String)bookTemp.get("edition");
-				String type = (String)bookTemp.get("type");
-				Book addBook = new Book(title, author, year, genre, desc, borrower, series, ratings, comments, pages, awards, publisher, edition, type);
-				loader.add(addBook);
+			if (books.size() != 0) {
+				for (int a = 0; a < books.size(); a++) {
+					JSONObject bookTemp = (JSONObject)books.get(a);
+					String title = (String)bookTemp.get("title");
+					String author = (String)bookTemp.get("author");
+					int year = Integer.parseInt((String) bookTemp.get("year").toString());
+					String[] genre = splitify1((String)bookTemp.get("genre").toString());
+					String desc = (String)bookTemp.get("desc");		
+					LinkedList<String[]> borrower = splitify4((String)bookTemp.get("borrower").toString());
+					String series = (String)bookTemp.get("series");
+					double[] ratings = splitify2((String)bookTemp.get("ratings").toString());
+					LinkedList<String> comments = splitify3((String)bookTemp.get("comments").toString());
+					int pages = Integer.parseInt((String) bookTemp.get("pages").toString());
+					LinkedList<String> awards = splitify3((String)bookTemp.get("awards").toString());
+					LinkedList<String> publisher = splitify3((String)bookTemp.get("publisher").toString());
+					String edition = (String)bookTemp.get("edition");
+					String type = (String)bookTemp.get("type");
+					Book addBook = new Book(title, author, year, genre, desc, borrower, series, ratings, comments, pages, awards, publisher, edition, type);
+					loader.add(addBook);
+				}
 			}
 			FileReader reader2 = new FileReader(Av);
 			//JSONParser parser2 = new JSONParser();
 			JSONObject jsonData2 = (JSONObject)new JSONParser().parse(reader2);
 			JSONArray videos = (JSONArray)jsonData2.get("video");
 			reader2.close();
-			System.out.println(videos.size());
-			for (int b = 0; b < videos.size(); b++) {
-				JSONObject videoTemp = (JSONObject)videos.get(b);
-				String title = (String)videoTemp.get("title");
-				String author = (String)videoTemp.get("author");
-				int year = Integer.parseInt((String) videoTemp.get("year").toString());
-				String[] genre = splitify1((String)videoTemp.get("genre").toString());
-				String desc = (String)videoTemp.get("desc");		
-				LinkedList<String[]> borrower = splitify4((String)videoTemp.get("borrower").toString());
-				String series = (String)videoTemp.get("series");
-				double[] ratings = splitify2((String)videoTemp.get("ratings").toString());
-				LinkedList<String> comments = splitify3((String)videoTemp.get("comments").toString());
-				int time = Integer.parseInt((String)videoTemp.get("time").toString());
-				LinkedList<String> awards = splitify3((String)videoTemp.get("awards").toString());
-				LinkedList<String> studios = splitify3(videoTemp.get("studios").toString());
-				boolean hasSisterMovies = Boolean.parseBoolean((String)videoTemp.get("hasSisterMovies").toString());
-				Video addVid = new Video(title, author, year, genre, desc, borrower, series, ratings, comments, time, studios, awards, hasSisterMovies);
-				loader.add(addVid);
+			
+			if (videos.size() != 0) {
+				for (int b = 0; b < videos.size(); b++) {
+					JSONObject videoTemp = (JSONObject)videos.get(b);
+					String title = (String)videoTemp.get("title");
+					String author = (String)videoTemp.get("author");
+					int year = Integer.parseInt((String) videoTemp.get("year").toString());
+					String[] genre = splitify1((String)videoTemp.get("genre").toString());
+					String desc = (String)videoTemp.get("desc");		
+					LinkedList<String[]> borrower = splitify4((String)videoTemp.get("borrower").toString());
+					String series = (String)videoTemp.get("series");
+					double[] ratings = splitify2((String)videoTemp.get("ratings").toString());
+					LinkedList<String> comments = splitify3((String)videoTemp.get("comments").toString());
+					int time = Integer.parseInt((String)videoTemp.get("time").toString());
+					LinkedList<String> awards = splitify3((String)videoTemp.get("awards").toString());
+					LinkedList<String> studios = splitify3(videoTemp.get("studios").toString());
+					boolean hasSisterMovies = Boolean.parseBoolean((String)videoTemp.get("hasSisterMovies").toString());
+					Video addVid = new Video(title, author, year, genre, desc, borrower, series, ratings, comments, time, studios, awards, hasSisterMovies);
+					loader.add(addVid);
+				}
 			}
 			FileReader reader3 = new FileReader(Am);
 			//JSONParser parser3 = new JSONParser();
 			JSONObject jsonData3 = (JSONObject)new JSONParser().parse(reader3);
 			JSONArray mags = (JSONArray)jsonData3.get("magazine");
 			reader3.close();
-			System.out.println(mags.size());
-			for (int c = 0; c < videos.size(); c++) {
-				JSONObject magTemp = (JSONObject)mags.get(c);
-				String title = (String)magTemp.get("title");
-				String author = (String)magTemp.get("author");
-				int year = Integer.parseInt((String)magTemp.get("year").toString());
-				String[] genre = splitify1((String)magTemp.get("genre").toString());
-				String desc = (String)magTemp.get("desc");		
-				LinkedList<String[]> borrower = splitify4((String)magTemp.get("borrower").toString());
-				String series = (String)magTemp.get("series");
-				double[] ratings = splitify2((String)magTemp.get("ratings").toString());
-				LinkedList<String> comments = splitify3((String)magTemp.get("comments").toString());
-				int articles = Integer.parseInt((String)magTemp.get("articles").toString());
-				String[] issue = splitify1((String)magTemp.get("issue").toString());
-				boolean isMature = Boolean.parseBoolean((String)magTemp.get("isMature").toString());
-				Magazine addMag = new Magazine(title, author, year, genre, desc, borrower, series, ratings, comments, articles, issue, isMature);
-				loader.add(addMag);
+			if (mags.size() != 0)
+			{
+				for (int c = 0; c < mags.size(); c++) {
+					JSONObject magTemp = (JSONObject)mags.get(c);
+					String title = (String)magTemp.get("title");
+					String author = (String)magTemp.get("author");
+					int year = Integer.parseInt((String)magTemp.get("year").toString());
+					String[] genre = splitify1((String)magTemp.get("genre").toString());
+					String desc = (String)magTemp.get("desc");		
+					LinkedList<String[]> borrower = splitify4((String)magTemp.get("borrower").toString());
+					String series = (String)magTemp.get("series");
+					double[] ratings = splitify2((String)magTemp.get("ratings").toString());
+					LinkedList<String> comments = splitify3((String)magTemp.get("comments").toString());
+					int articles = Integer.parseInt((String)magTemp.get("articles").toString());
+					String[] issue = splitify1((String)magTemp.get("issue").toString());
+					boolean isMature = Boolean.parseBoolean((String)magTemp.get("isMature").toString());
+					Magazine addMag = new Magazine(title, author, year, genre, desc, borrower, series, ratings, comments, articles, issue, isMature);
+					loader.add(addMag);
+				}
 			}
-			System.out.println("Succesfully loaded the inventory with " + loader.size() + " item(s).");
 			return loader;
 		}
 		catch (Exception e) {
@@ -327,9 +355,15 @@ public class Library {
 					mags += prettify(toWrite.replace("\\\"",  "")) + ",\n";
 				}
 			}
-			books = books.substring(0, books.length()-2);
-			videos = videos.substring(0, videos.length()-2);
-			mags =  mags.substring(0, mags.length()-2);
+			if (books.length() > 2) {
+				books = books.substring(0, books.length()-2);
+			}
+			if (videos.length() > 2) {
+				videos = videos.substring(0, videos.length()-2);
+			}
+			if (mags.length() > 2) {
+				mags =  mags.substring(0, mags.length()-2);
+			}
 			FileWriter wb = new FileWriter(Ab);
 			wb.write("{\"book\":[\n");
 			FileWriter wv = new FileWriter(Av);
@@ -345,7 +379,6 @@ public class Library {
 			wb.close();
 			wv.close();
 			wm.close();
-			System.out.println("Succesfully saved the inventory of " + inv.size() + " item(s).");
 		}
 		catch (Exception e) {
 			System.out.println("Error in saving the data.");
@@ -358,6 +391,7 @@ public class Library {
 		System.out.println("Succesfully added a new item to the inventory.");
 	}
 	
+	//Operates on the idea that Item quantity is borrower.size();
 	public void addCopyOfItem(String title) {
 		for (int a = 0; a < inv.size(); a++) {
 			Item copyAdd = inv.get(a);
@@ -419,6 +453,13 @@ public class Library {
 	public void addUser(User toAdd) {
 		usr.add(toAdd);
 	}
+	
+	
+	/**
+	 * All methods make JSON more readable to the human eye
+	 * @param toEdit
+	 * @return
+	 */
 	
 	private static String prettify(String toEdit) {
 		return toEdit.replace(",\"", ",\n\"").replace("{", "{\n").replace("}", "\n}");

@@ -49,6 +49,7 @@ public class Magazine extends Item {
 		this.isMature = isMature;
 	}
 	
+	//Abstract methods
 	public JSONObject getJSON() throws Exception
 	{
 		JSONObject ret = new JSONObject();

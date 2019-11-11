@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class System_Driver {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		final String lu = "lib";
 		final String lp = "lib";
 		Adult compareWith = new Adult();
@@ -16,15 +16,24 @@ public class System_Driver {
 		Scanner keyboard = new Scanner(System.in);
 		int choice = 0;
 		while (true) {
+			//Login prompt for upon login or continue of initial while loop
 			System.out.println("Welcome to Library 247! Select the index of cmd:"
 					+ "\n1. Login"
 					+ "\n2. Sign up"
 					+ "\n3. Advance \"X\" days"
 					+ "\n4. Quit");
+			
+			/**
+			 * Keyboard is always going to be nextLine to avoid bug where nextInt() -> nextLine() causes a bug
+			 * Issue is easy to fix with simple blank fire, but if a while loop commits "continue", a blank fire
+			 * not be necessarily appropriate.
+			 */
+			
 			choice = Integer.parseInt(keyboard.nextLine());
 			switch (choice) {
 				case 1:
-					System.out.println("Please enter the following paremeters");
+					//Parameters to login
+					System.out.println("Please enter the following parameters");
 					System.out.println("Username:");
 					username = keyboard.nextLine();
 					System.out.println("Password:");
@@ -35,34 +44,51 @@ public class System_Driver {
 					lib.addUser(toAdd);
 					lib.save();
 					continue;
-				case 3: //Check for future reference if correct logic
+				case 3: //Advances the days by 1 and removes a day for how long the users can hold onto books
+					
+					/**
+					 * JSON is a pain with reading from a file. Its picks up " characters somehow, causing
+					 * strings when checked if equal to give the wrong results. This is why there are .replace(..., ...)
+					 * from place to place
+					 */
 					System.out.println("Enter the number of days to advance the system by:");
 					int days = Integer.parseInt(keyboard.nextLine());
 					for (int a = 0; a < days; a++)
 					{
 						lib.setDate(lib.getDate() + 1);
 						for (int b = 0; b < lib.getInv().size(); b++) {
-							LinkedList<String[]> borrowers = lib.getInv().get(b).getBorrower();
-							for (int c = 0; c < borrowers.size(); c++) {
-								String [] temp = borrowers.get(c);
-								if (temp[0].length() != 2) {
-									int daysLeft = Integer.parseInt(temp[1]);
-									daysLeft--;
-									temp[1] = Integer.toString(daysLeft);
-									if (daysLeft < 0)
+							Item ioi = lib.getInv().get(b);
+							LinkedList<String[]> borrower = ioi.getBorrower();
+							for (int c = 0; c < borrower.size(); c++) {
+								String[] temp = borrower.get(c);
+								if (!temp[0].replace("\"", "").equals("")) {
+									int temp2 = Integer.parseInt(temp[1].replace("\"", ""));
+									temp2--;
+									temp[1] = Integer.toString(temp2);
+									if (temp2 < 0) //Logic here addresses fines when necessary
 									{
-										for (int d = 0; d < lib.getUsr().size(); d++) {
-											if (lib.getUsr().get(d).getCheckedItem().contains(lib.getInv().get(b).getTitle())) {
-												double total = lib.getUsr().get(d).getFines();
-												lib.getUsr().get(d).setFines(total + .25);
-												break;
+										for (int d = 0; d < lib.getUsr().size(); d++)
+										{
+											User uoi = lib.getUsr().get(d);
+											String name = uoi.getName();
+											if (temp[0].contains(name)) {
+												uoi.setFines(uoi.getFines() + .25);
 											}
 										}
 									}
+									String temp3[] = new String[2];
+									temp3[0] = temp[0];
+									temp3[1] = temp[1];
+									borrower.set(c, temp3);
 								}
+								ioi.setBorrower(borrower);
+								lib.updateItem(ioi);
 							}
 						}
+						lib.save();
+						continue;
 					}
+					System.out.println("Date is: " + lib.getDate());
 					break;
 				default:
 					System.out.println("Exiting the program.");
@@ -72,7 +98,7 @@ public class System_Driver {
 			//Librarian Commands
 			if (username.equals(lu) && password.equals(lp)) {
 				System.out.println("Logged in as Librarian.");
-				while (true) {
+				while(true) {
 					System.out.println("Select the index of cmd:"
 							+ "\n1. View Patron summary"
 							+ "\n2. View Inventory summary"
@@ -107,23 +133,25 @@ public class System_Driver {
 							Magazine toMake = createMagazine(keyboard);
 							lib.addNewItem(toMake);
 						}
-						System.out.println("Succesfully added an Item to the inventory.");
+						lib.save();
 					}
-					else if (choice == 4) {
+					else if (choice == 4) { //Adds a copy of item
 						System.out.println("Enter the index of the Item you would like to add a copy of: ");
 						getTitles(lib);
 						int index = Integer.parseInt(keyboard.nextLine());
 						lib.addCopyOfItem(lib.getInv().get(index).getTitle());
 						System.out.println("Item quantity has been increased.");
+						lib.save();
 					}
-					else if (choice == 5) {
+					else if (choice == 5) { //Removes copies of items, but removes completely if there only exists one copy overall
 						System.out.println("Enter the index of the Item you would like to remove:"
-								+ "\n(Note: This will only decrease the quantity of it by 1)"
+								+ "\n(Note: This will only decrease the quantity of it by 1 each time)"
 								+ "\n(Note: If the Item has all copies checked out, it cannot be removed)");
 						getTitles(lib);
 						int index = Integer.parseInt(keyboard.nextLine());
 						lib.removeItem(lib.getInv().get(index).getTitle());
 						System.out.println("Item has been removed");
+						lib.save();
 					}
 					else if (choice == 6) {
 						System.out.println("Enter the index of the patron to enable:");
@@ -139,7 +167,7 @@ public class System_Driver {
 						lib.getUsr().get(index).setEnabled(false); 
 						System.out.println("User is now disabled.");
 					}
-					else {
+					else { //Goes back to primary prompt
 						System.out.println("Logging out.");
 						break;
 					}
@@ -148,29 +176,40 @@ public class System_Driver {
 			//User commands
 			else {
 				User logged = lib.login(username, password);
-				if (logged.getName().equals("No Name"))
-				{
-					System.out.println("Incorrect Username/Password.");
+				if (logged.getName().equals("No name")) {
+					System.out.println("Incorrect login credentials.");
 					continue;
 				}
 				else if (!logged.isEnabled()) {
-					System.out.println("The account of those login credentials is disabled.");
+					System.out.println("The user account is disabled.");
 					continue;
 				}
-				LinkedList<String> update = new LinkedList<>();
-				for (int a = 0; a < logged.getLookForItem().size(); a++) {
-					if (lib.isAvailable(logged.getLookForItem().get(a))) {
-						System.out.println("The Item, " + logged.getLookForItem().get(a) + ", is available for check out.");
-					}
-					else
-					{
-						update.add(logged.getLookForItem().get(a));
-					}
+				if (logged.getCheckedItem().size() == 1 && logged.getCheckedItem().get(0).length() == 0) {
+					LinkedList<String> checkedItem = new LinkedList<>();
+					logged.setCheckedItem(checkedItem);
 				}
-				logged.setCheckedItem(update);
+				if (logged.getLookForItem().size() == 1 && logged.getLookForItem().get(0).length() == 0) {
+					LinkedList<String> lookFor = new LinkedList<>();
+					logged.setLookForItem(lookFor);
+				}
 				lib.updateUser(logged);
-				logged = lib.login(logged.getUsername(), logged.getPassword());
-				while(true) {
+				//Notifications
+				if (logged.getLookForItem().size() != 0) {
+					LinkedList<String> booksNotFound = new LinkedList<>();
+					for (int a = 0; a < logged.getLookForItem().size(); a++) {
+						if (lib.isAvailable(logged.getLookForItem().get(a))) {
+							System.out.println(logged.getLookForItem().get(a) + " is available.");
+						}
+						else
+						{
+							System.out.println(logged.getLookForItem().get(a) + " is not yet available.");
+							booksNotFound.add(logged.getLookForItem().get(a));
+						}
+					}
+					logged.setLookForItem(booksNotFound);
+					lib.updateUser(logged);
+				}
+				while (true) {
 					System.out.println("Select the index of cmd:"
 							+ "\n1. Browse"
 							+ "\n2. Check out"
@@ -186,75 +225,94 @@ public class System_Driver {
 						String key = keyboard.nextLine();
 						for (int a = 0; a < lib.getInv().size(); a++) {
 							if (lib.getInv().get(a).getAuthor().toLowerCase().contains(key.toLowerCase()) || lib.getInv().get(a).getTitle().toLowerCase().contains(key.toLowerCase())) {
+								System.out.println("-- -- --");
 								System.out.println(lib.getInv().get(a).getInfo());
-								System.out.println("---");
+								System.out.println("-- -- --");
 							}
 						}
 					}
 					else if (choice == 2) {
-						System.out.println("Enter the index of the item you would like to check out:");
-						getTitlesUser(lib);
-						choice = Integer.parseInt(keyboard.nextLine());
-						boolean success = false;
-						LinkedList<String[]> borrowers = lib.getInv().get(choice).getBorrower();
-						Book comp1 = new Book();
-						Video comp2 = new Video();
-						for (int a = 0; a < borrowers.size(); a++) {
-							if (borrowers.get(a)[0].length() == 2) {
-								success = true;
-								borrowers.get(a)[0] = logged.getName();
-								if (lib.getInv().get(choice).getClass() == comp1.getClass()) {
-									borrowers.get(a)[1] = "21";
-								}
-								else if (lib.getInv().get(choice).getClass() == comp2.getClass()) {
-									borrowers.get(a)[1] = "14";
-								}
-								else {
-									borrowers.get(a)[1] = "7";
-								}
-								break;
-							}
-						}				
-						if (success) {
-							System.out.println("Item has been checked out");
-							lib.getInv().get(choice).setBorrower(borrowers);
-							LinkedList<String> checkouts = logged.getCheckedItem();
-							checkouts.add(lib.getInv().get(choice).getTitle());
-							logged.setCheckedItem(checkouts);
-							lib.updateUser(logged);
-							logged = lib.login(logged.getUsername(), logged.getPassword());
+						if (logged.getFines() != 0) { //User cannot check out if fines are due
+							System.out.println("User must pay fines first.");
 						}
 						else {
-							System.out.println("The Item the user tried to check out had all copies checked out."
-									+ "\nUser will be notified when your book is ready.");
-							LinkedList<String> lookFor = logged.getLookForItem();
-							lookFor.add(lib.getInv().get(choice).getTitle());
-							logged.setLookForItem(lookFor);
-							lib.updateUser(logged);
-							logged = lib.login(logged.getUsername(), logged.getPassword());
+							System.out.println("Select the index of desired Item to check out:"
+									+ "\n(Note: If the Item has not copies remaining, User will be notified of availability upon next login of availability)");
+							getTitlesUser(lib);
+							choice = Integer.parseInt(keyboard.nextLine());
+							Item ioi = lib.getInv().get(choice);
+							String title = ioi.getTitle();
+							String days = "0";
+							try {
+								
+								/**
+								 * Different types of medium have different days for how long they can be checked out
+								 */
+								
+								if (ioi.getJSON().toString().contains("pages")) {
+									days = "21";
+								}
+								else if (ioi.getJSON().toString().contains("length")) {
+									days = "14";
+								}
+								else {
+									days = "7";
+								}
+							}
+							catch (Exception e) {
+								System.out.println("Error checking out.");
+								e.printStackTrace();
+							}
+							if (lib.isAvailable(title)) {
+								LinkedList<String[]> borrowers = ioi.getBorrower();
+								for (int a = 0; a < borrowers.size(); a++) {
+									String[] temp = borrowers.get(a);
+									if (temp[0].replace("\"", "") != "") {
+										System.out.println("Item is checked out.");
+										temp[0] = logged.getName();
+										temp[1] = days;
+										borrowers.set(a, temp);
+										ioi.setBorrower(borrowers);
+										lib.updateItem(ioi);
+										LinkedList<String> checkOut = logged.getCheckedItem();
+										checkOut.add(ioi.getTitle());
+										logged.setCheckedItem(checkOut);
+										lib.updateUser(logged);
+										break;
+									}
+								}
+							}
+							else {
+								System.out.println("Item is not available for check out.  User will be notified of availability upon next login of availability.");
+								LinkedList<String> lookFor = logged.getLookForItem();
+								lookFor.add(title);
+								logged.setLookForItem(lookFor);
+								lib.updateUser(logged);
+							}
 						}
 					}
 					else if (choice == 3) {
-						System.out.println("Enter the index of the item you would like to return:");
+						System.out.println("Select the index of item to return");
 						for (int a = 0; a < logged.getCheckedItem().size(); a++) {
-							System.out.println(a + ". " + logged.getCheckedItem().get(a));
+							System.out.println(a + ". " + logged.getCheckedItem().get(a).replace("\"", ""));
 						}
 						choice = Integer.parseInt(keyboard.nextLine());
-						String toRm = logged.getCheckedItem().get(choice);
+						String toRm = logged.getCheckedItem().get(choice).replace("\"", "");
 						LinkedList<String> temp = logged.getCheckedItem();
 						temp.remove(choice);
 						logged.setCheckedItem(temp);
 						lib.updateUser(logged);
-						logged = lib.login(logged.getUsername(), logged.getPassword());
 						for (int a = 0; a < lib.getInv().size(); a++) {
 							if (lib.getInv().get(a).getTitle().equalsIgnoreCase(toRm)) {
 								LinkedList<String[]> borrower = lib.getInv().get(a).getBorrower();
 								for (int b = 0; b < borrower.size(); b++) {
 									if (borrower.get(b)[0].contains(logged.getName())) {
-										borrower.get(b)[0] = "";
-										borrower.get(b)[1] = "";
+										String[] temp2 = {"\"\"", "\"\""};
+										borrower.set(b, temp2);
 										System.out.println("Item has been returned.");
-										lib.getInv().get(a).setBorrower(borrower);
+										Item ioi = lib.getInv().get(a);
+										ioi.setBorrower(borrower);
+										lib.updateItem(ioi);
 										break;
 									}
 								}
@@ -267,26 +325,23 @@ public class System_Driver {
 						System.out.println("-- -- --");
 						LinkedList<String> checkouts = logged.getCheckedItem();
 						for (int a = 0; a < checkouts.size(); a++) {
+							String title = checkouts.get(a);
 							for (int b = 0; b < lib.getInv().size(); b++) {
-								if (checkouts.get(a).equalsIgnoreCase(lib.getInv().get(b).getTitle())) {
-									LinkedList<String[]> borrowers = lib.getInv().get(b).getBorrower();
-									for (int c =  0; c < borrowers.size(); c++) {
-										if (borrowers.get(c)[0].equals(logged.getName())) {
-											System.out.println(lib.getInv().get(c).getTitle() + " Due: " + borrowers.get(c)[0] + " days");
-											break;
-										}
+								Item ioi = lib.getInv().get(b);
+								for (int c = 0; c < ioi.getBorrower().size(); c++) {
+									if (ioi.getTitle().equals(title.replace("\"", ""))) {
+										System.out.println(title.replace("\"", "") + " || " + ioi.getBorrower().get(c)[1].replace("\"", "") + " days left");
+										break;
 									}
-									break;
 								}
 							}
 						}
 					}
 					else if (choice == 5) {
 						if (logged.getClass().equals(compareWith.getClass())) {
+							System.out.println("User has paid off fines of $" + logged.getFines());
 							logged.setFines(0);
 							lib.updateUser(logged);
-							logged = lib.login(logged.getUsername(), logged.getPassword());
-							System.out.println("User has paid off fines of " + logged.getFines());
 						}
 						else {
 							Kid pushFrom = (Kid) logged;
@@ -302,7 +357,6 @@ public class System_Driver {
 							pushFrom.setFines(0);
 							lib.updateUser(pushFrom);
 							lib.updateUser(logged);
-							logged = lib.login(logged.getUsername(), logged.getPassword());
 							System.out.println("User has pushed the fines to their parent.");
 						}
 					}
@@ -315,25 +369,32 @@ public class System_Driver {
 							lib.addUser(toAdd);
 							logged = logA;
 							lib.updateUser(logged);
-							logged = lib.login(logged.getUsername(), logged.getPassword());
 						}
 						else {
-							System.out.println("Kid users are not allowed to create kid accounts.");
+							System.out.println("User is kid, therefore, user is not allowed to create kid accounts.");
 						}
 					}
 					else if (choice == 7) {
-						System.out.println("Enter the index of the item you would like to rate and comment on:");
-						getTitlesUser(lib);
+						System.out.println("Please select the index of the Item to rate/comment:");
+						getTitles(lib);
 						choice = Integer.parseInt(keyboard.nextLine());
-						System.out.println("Enter the rating (0-5):");
-						double rating = Double.parseDouble(keyboard.nextLine());
-						System.out.println("Enter the comment: ");
+						System.out.println("Other patron ratings/comments:");
+						Item ioi = lib.getInv().get(choice);
+						LinkedList<String> comments = ioi.getComments();
+						getRatingsComments(lib, choice);
+						System.out.println("Ratings: (0-5)");
+						double ratings = Double.parseDouble(keyboard.nextLine());
+						System.out.println("Comment:");
 						String comment = keyboard.nextLine();
-						Item toRate = lib.getInv().get(choice);
-						toRate.getComments().add(comment);
-						toRate.updateRatings(rating);
-						lib.updateItem(toRate);
-						System.out.println("Succesfully updated ratings and comments of the item.");
+						ioi.updateRatings(ratings);
+						if (!comments.getFirst().equals("\"\"")) {
+							comments.add(comment);
+						}
+						else {
+							comments.set(0, comment);
+						}
+						ioi.setComments(comments);
+						lib.updateItem(ioi);
 					}
 					else {
 						System.out.println("Logging out.");
@@ -358,7 +419,7 @@ public class System_Driver {
 			LinkedList<String[]> borrowers = lib.getInv().get(a).getBorrower();
 			int notCO = 0;
 			for (int b = 0; b < borrowers.size(); b++) {
-				if (borrowers.get(b)[0].length() == 2) {
+				if (borrowers.get(b)[0].equals("\"\"")) {
 					notCO++;
 				}
 			}
@@ -371,6 +432,15 @@ public class System_Driver {
 	{
 		for (int a = 0; a < lib.getUsr().size(); a++) {
 			System.out.println(a + ". " + lib.getUsr().get(a).getName());
+		}
+	}
+	
+	public static void getRatingsComments(Library lib, int index)
+	{
+		Item ioi = lib.getInv().get(index);
+		System.out.println("Ratings: " + ioi.getRatings()[0] + " average out of " + ioi.getRatings()[1]);
+		for (int a = 0; a < ioi.getComments().size(); a++) {
+			System.out.println("-" +  ioi.getComments().get(a).replace("\"", ""));
 		}
 	}
 	
@@ -388,7 +458,7 @@ public class System_Driver {
 		LinkedList<String> lookForItem = new LinkedList<>();
 		System.out.println("Birthday:");
 		int birthday = Integer.parseInt(keyboard.nextLine());
-		System.out.println("Has Kids:");
+		System.out.println("Has Kids: (true/false)");
 		boolean hasKids = Boolean.parseBoolean(keyboard.nextLine());
 		Adult toAdd = new Adult(name, age, username, password, checkedItem, lookForItem, birthday, 0, true, hasKids);
 		return toAdd;
@@ -428,6 +498,8 @@ public class System_Driver {
 		System.out.println("Description:");
 		ret.setDesc(keyboard.nextLine());
 		LinkedList<String[]> borrower = new LinkedList<>();
+		String[] temp = {"", ""};
+		borrower.add(temp);
 		ret.setBorrower(borrower);
 		System.out.println("Series:");
 		ret.setSeries(keyboard.nextLine());
@@ -480,6 +552,8 @@ public class System_Driver {
 		System.out.println("Description:");
 		ret.setDesc(keyboard.nextLine());
 		LinkedList<String[]> borrower = new LinkedList<>();
+		String[] temp = {"", ""};
+		borrower.add(temp);
 		ret.setBorrower(borrower);
 		System.out.println("Series:");
 		ret.setSeries(keyboard.nextLine());
@@ -530,6 +604,8 @@ public class System_Driver {
 		System.out.println("Description:");
 		ret.setDesc(keyboard.nextLine());
 		LinkedList<String[]> borrower = new LinkedList<>();
+		String[] temp = {"", ""};
+		borrower.add(temp);
 		ret.setBorrower(borrower);
 		System.out.println("Series:");
 		ret.setSeries(keyboard.nextLine());

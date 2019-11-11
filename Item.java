@@ -5,6 +5,10 @@ import org.json.*;
 
 public abstract class Item {
 	
+	/**
+	 * Basic class that served as the stencil for all of its children to follow, hence it abstract modifier 
+	 */
+	
 	//Variables
 	private String title;
 	private String author;
@@ -75,6 +79,7 @@ public abstract class Item {
 		return genre;
 	}
 
+	//JSON does not work with enums unfortunately
 	public void setGenre(String genre, int index) {
 		if (index == 0 || index == 1) {
 			if (genre.toLowerCase().equals("fantasy")) {

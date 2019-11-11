@@ -1,36 +1,3 @@
 {"magazine":[
-{
-"comments":[""],
-"issue":["null",
-"null"],
-"year":0,
-"author":"No author",
-"series":"No series",
-"ratings":[0,0],
-"genre":["null",
-"null"],
-"borrower":[["",
-""]],
-"isMature":false,
-"title":"mag1",
-"articles":0,
-"desc":"No desc"
-},
-{
-"comments":[""],
-"issue":["23",
-"23"],
-"year":23,
-"author":"jj",
-"series":"23",
-"ratings":[0,0],
-"genre":["Other",
-"Other"],
-"borrower":[["",
-""]],
-"isMature":true,
-"title":"mag2",
-"articles":23,
-"desc":"23"
-}
+
 ]}

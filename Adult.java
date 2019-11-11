@@ -3,9 +3,9 @@ package Library247;
 import java.util.LinkedList;
 import org.json.*;
 
-public class Adult extends User {
+public class Adult extends User { 
 	
-	private boolean hasKids;
+	private boolean hasKids; /**Has a unique boolean making it set apart from kid**/
 	
 	public Adult() {
 		super();
@@ -17,7 +17,6 @@ public class Adult extends User {
 		this.hasKids = false;
 	}
 	
-	
 	public boolean getHasKids()
 	{
 		return this.hasKids;
@@ -28,7 +27,8 @@ public class Adult extends User {
 		this.hasKids = setTo;
 	}
 	
-	public JSONObject getJSON() throws Exception {
+	/**Abstract methods built to work with fileIO and console interface respectively**/
+	public JSONObject getJSON() throws Exception { //Could have been demoted from abstract to include super to shorten it
 		JSONObject ret = new JSONObject();
 		ret.put("name", this.getName());
 		ret.put("age", this.getAge());
@@ -44,7 +44,7 @@ public class Adult extends User {
 	}
 
 	@Override
-	public String getInfo() {
+	public String getInfo() { //Used for patron method
 		String ret = "Name: " + this.getName() + "\n"
 				+ "Age: " + this.getAge() + "\n"
 				+ "Birthday: " + this.getBirthday() + "\n"

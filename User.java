@@ -2,6 +2,12 @@ package Library247;
 
 import java.util.LinkedList;
 
+/**
+ * This should of been combined with people, but due to time constraints, it was never combined.
+ * @author thisi
+ *
+ */
+
 public abstract class User extends People {
 	private LinkedList<String> checkedItem;
 	private LinkedList<String> lookForItem;
