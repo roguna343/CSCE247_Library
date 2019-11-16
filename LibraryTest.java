@@ -25,6 +25,7 @@ class LibraryTest {
 		libTest.updateUser(test);
 		boolean isUpdated = test.equals(libTest.getUsr().get(0));
 		assertEquals(isUpdated, true);
+		libTest.save();
 	}
 
 	@Test
@@ -35,6 +36,7 @@ class LibraryTest {
 		libTest.updateItem(check);
 		boolean isUpdated = check.equals(libTest.getInv().get(0));
 		assertEquals(isUpdated, true);
+		libTest.save();
 	}
 
 	@Test
@@ -51,8 +53,8 @@ class LibraryTest {
 	@Test
 	void testOverallInventoryInfo() {
 		Library libTest = new Library();
-		//libTest.getInventoryInfo();
-		//libTest.getPatronInfo();
+		libTest.getInventoryInfo();
+		libTest.getPatronInfo();
 	}
 
 	@Test
@@ -63,9 +65,25 @@ class LibraryTest {
 		boolean prev = libTest.isAvailable(lookFor.getTitle());
 		libTest.addNewItem(lookFor);
 		boolean add = libTest.isAvailable(lookFor.getTitle());
-		
+		libTest.save();
 	}
 
+	@Test
+	void testPushFines() {
+		Library libTest = new Library();
+		Kid k = new Kid();
+		Adult a = new Adult();
+		k.setFines(20);
+		a.setName("Barry");
+		k.setParent(a.getName());
+		a.setPassword("aa");
+		a.setUsername("aa");
+		libTest.addUser(k);
+		libTest.addUser(a);
+		libTest.pushFines(k);
+		assertEquals(20, libTest.login(a.getUsername(), a.getPassword()).getFines());
+	}
+	
 	@Test
 	void testAddCopyOfItem() {
 		Library libTest = new Library();
@@ -75,6 +93,7 @@ class LibraryTest {
 		int quantity2 = test1.getQuantity();
 		int diff = quantity2 - quantity1;
 		assertEquals(diff, 1);
+		libTest.save();
 	}
 
 	@Test
@@ -87,6 +106,7 @@ class LibraryTest {
 		libTest.removeItem(test.getTitle());
 		boolean availableNow = libTest.isAvailable(test.getTitle());
 		assertEquals(availablePrev, !availableNow);
+		libTest.save();
 	}
 
 	@Test
@@ -100,6 +120,6 @@ class LibraryTest {
 		int newUserCount = libTest.getUsr().size();
 		int diff = newUserCount - prevUserCount;
 		assertEquals(diff, 2);
+		libTest.save();
 	}
-
 }
