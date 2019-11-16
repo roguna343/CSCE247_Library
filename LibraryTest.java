@@ -7,41 +7,6 @@ import org.junit.jupiter.api.Test;
 class LibraryTest {
 
 	@Test
-	void testLibrary() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetDate() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testSetDate() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetInv() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testSetInv() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetUsr() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testSetUsr() {
-		fail("Not yet implemented");
-	}
-
-	@Test
 	void testLogin() {
 		fail("Not yet implemented");
 	}
