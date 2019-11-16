@@ -33,7 +33,8 @@ class LibraryTest {
 
 	@Test
 	void testGetPatronInfo() {
-		fail("Not yet implemented");
+		Library libTest = new Library();
+		libTest.getPatronInfo();
 	}
 
 	@Test
