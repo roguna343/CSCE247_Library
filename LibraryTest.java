@@ -8,17 +8,30 @@ class LibraryTest {
 
 	@Test
 	void testLogin() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testSave() {
-		fail("Not yet implemented");
+		Library libTest = new Library();
+		Adult toAdd = new Adult();
+		toAdd.setUsername("Brent");
+		toAdd.setPassword("Brunk");
+		libTest.addUser(toAdd);
+		User logged = libTest.login(toAdd.getUsername(), toAdd.getPassword());
+		assertEquals(logged, toAdd);
 	}
 
 	@Test
 	void testUpdateUser() {
-		fail("Not yet implemented");
+		Library libTest = new Library();
+		User test = libTest.getUsr().get(0);
+		test.setEnabled(false);
+		boolean prev = false;
+		if(test.equals(libTest.getUsr().get(0))) {
+			prev = true;
+		}
+		boolean curr = false;
+		libTest.updateUser(test);
+		if(test.equals(libTest.getUsr().get(0))) {
+			curr = true;
+		}
+		assertEquals(prev, curr);
 	}
 
 	@Test
