@@ -1,4 +1,4 @@
-package CSCE247_Library;
+package Library247;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,8 +10,8 @@ class LibraryTest {
 	void testLogin() {
 		Library libTest = new Library();
 		Adult toAdd = new Adult();
-		toAdd.setUsername("Brent");
-		toAdd.setPassword("Brunk");
+		toAdd.setUsername("8888");
+		toAdd.setPassword("8888");
 		libTest.addUser(toAdd);
 		User logged = libTest.login(toAdd.getUsername(), toAdd.getPassword());
 		assertEquals(logged, toAdd);
@@ -21,22 +21,20 @@ class LibraryTest {
 	void testUpdateUser() {
 		Library libTest = new Library();
 		User test = libTest.getUsr().get(0);
-		test.setEnabled(false);
-		boolean prev = false;
-		if(test.equals(libTest.getUsr().get(0))) {
-			prev = true;
-		}
-		boolean curr = false;
+		test.setAge(test.getAge() + 99999);
 		libTest.updateUser(test);
-		if(test.equals(libTest.getUsr().get(0))) {
-			curr = true;
-		}
-		assertEquals(prev, curr);
+		boolean isUpdated = test.equals(libTest.getUsr().get(0));
+		assertEquals(isUpdated, true);
 	}
 
 	@Test
 	void testUpdateItem() {
-		fail("Not yet implemented");
+		Library libTest = new Library();
+		Item check = libTest.getInv().get(0);
+		check.setAuthor(check.getAuthor() + "aaaaaa");
+		libTest.updateItem(check);
+		boolean isUpdated = check.equals(libTest.getInv().get(0));
+		assertEquals(isUpdated, true);
 	}
 
 	@Test
@@ -51,47 +49,57 @@ class LibraryTest {
 	}
 
 	@Test
-	void testGetPatronInfo() {
+	void testOverallInventoryInfo() {
 		Library libTest = new Library();
-		libTest.getPatronInfo();
-	}
-
-	@Test
-	void testGetInventoryInfo() {
-		Library libTest = new Library();
-		libTest.getInventoryInfo();
-	}
-
-	@Test
-	void testPushFines() {
-		fail("Not yet implemented");
+		//libTest.getInventoryInfo();
+		//libTest.getPatronInfo();
 	}
 
 	@Test
 	void testAddNewItem() {
 		Library libTest = new Library();
-		Book book = new Book();
-		String title = "The Giver";
-		book.setTitle(title);
-		libTest.addNewItem(book);
-		boolean expected = libTest.isAvailable(title);
-		boolean actual = libTest.isAvailable(title);
-		assertEquals(expected, actual);
+		Book lookFor = new Book();
+		lookFor.setTitle("Book notAdded");
+		boolean prev = libTest.isAvailable(lookFor.getTitle());
+		libTest.addNewItem(lookFor);
+		boolean add = libTest.isAvailable(lookFor.getTitle());
+		
 	}
 
 	@Test
 	void testAddCopyOfItem() {
-		fail("Not yet implemented");
+		Library libTest = new Library();
+		Item test1 = libTest.getInv().get(0);
+		int quantity1 = test1.getQuantity();
+		libTest.addCopyOfItem(test1.getTitle());
+		int quantity2 = test1.getQuantity();
+		int diff = quantity2 - quantity1;
+		assertEquals(diff, 1);
 	}
 
 	@Test
 	void testRemoveItem() {
-		fail("Not yet implemented");
+		Library libTest = new Library();
+		Book test = new Book();
+		test.setTitle("Removing");
+		libTest.addNewItem(test);
+		boolean availablePrev = libTest.isAvailable(test.getTitle());
+		libTest.removeItem(test.getTitle());
+		boolean availableNow = libTest.isAvailable(test.getTitle());
+		assertEquals(availablePrev, !availableNow);
 	}
 
 	@Test
 	void testAddUser() {
-		fail("Not yet implemented");
+		Library libTest = new Library();
+		int prevUserCount = libTest.getUsr().size();
+		Adult toAdd = new Adult();
+		Kid toAdd2 = new Kid();
+		libTest.addUser(toAdd);
+		libTest.addUser(toAdd2);
+		int newUserCount = libTest.getUsr().size();
+		int diff = newUserCount - prevUserCount;
+		assertEquals(diff, 2);
 	}
 
 }

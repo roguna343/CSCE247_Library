@@ -412,7 +412,7 @@ public class Library {
 			int index = 0;
 			boolean isFound = false;
 			for (int a = 0; a < inv.size(); a++) {
-				index++;
+				index = a;
 				Item temp = inv.get(a);
 				if (temp.getTitle().toLowerCase().equals(title.toLowerCase())) {
 					isFound = true;

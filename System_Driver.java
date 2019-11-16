@@ -291,7 +291,7 @@ public class System_Driver {
 							}
 						}
 					}
-					else if (choice == 3) {
+					else if (choice == 3) { //Return items
 						System.out.println("Select the index of item to return");
 						for (int a = 0; a < logged.getCheckedItem().size(); a++) {
 							System.out.println(a + ". " + logged.getCheckedItem().get(a).replace("\"", ""));
@@ -320,7 +320,7 @@ public class System_Driver {
 							}
 						}
 					}
-					else if (choice == 4) {
+					else if (choice == 4) { //Displays the information that belongs to the user
 						System.out.println(logged.getInfo());
 						System.out.println("-- -- --");
 						LinkedList<String> checkouts = logged.getCheckedItem();
@@ -338,6 +338,12 @@ public class System_Driver {
 						}
 					}
 					else if (choice == 5) {
+						
+						/**
+						 * Kids and adults have different behaviors when it comes to treating the fines. Adults will
+						 * pay off the fine, kids push the fine to their parent
+						 */
+						
 						if (logged.getClass().equals(compareWith.getClass())) {
 							System.out.println("User has paid off fines of $" + logged.getFines());
 							logged.setFines(0);
@@ -374,7 +380,7 @@ public class System_Driver {
 							System.out.println("User is kid, therefore, user is not allowed to create kid accounts.");
 						}
 					}
-					else if (choice == 7) {
+					else if (choice == 7) { //Comment feature, shows the comments of the book being commented on
 						System.out.println("Please select the index of the Item to rate/comment:");
 						getTitles(lib);
 						choice = Integer.parseInt(keyboard.nextLine());
@@ -402,9 +408,14 @@ public class System_Driver {
 					}
 				}
 			}
-			lib.save();
+			lib.save(); //When the user logs out, the .json files will be written with the data updated
 		}	
 	}
+	
+	/**
+	 * These are all methods made to make the console interface easier since the code was very repetitive. First half are for console display,
+	 * others half work with the console to create objects. These help shorted the code alot.
+	 */
 	
 	public static void getTitles(Library lib)
 	{
@@ -426,7 +437,6 @@ public class System_Driver {
 			System.out.println(a + ". " + lib.getInv().get(a).getTitle() + " || Quantity: " + notCO + "/" + lib.getInv().get(a).getQuantity());			
 		}
 	}
-	
 	
 	public static void getNames(Library lib)
 	{

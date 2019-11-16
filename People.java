@@ -2,6 +2,13 @@ package Library247;
 
 import org.json.JSONObject;
 
+/**
+ * This class could have been eliminated since we got rid of its only direct non abstract child, the librarian, but we decided the
+ * driver will serve as a make shift librarian.
+ * @author thisi
+ *
+ */
+
 public abstract class People {
 	private String name;
 	private int age;

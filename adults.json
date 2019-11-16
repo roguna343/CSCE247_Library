@@ -4,10 +4,11 @@
 "hasKids":false,
 "password":"sub1",
 "fines":0,
-"name":"subject1",
+"name":"sub1",
 "checkedItem":["book1",
-"goldilocks"],
-"lookForItem":[],
+"goldilocks",
+"to kill a mocking bird"],
+"lookForItem":["goldilocks"],
 "age":0,
 "enabled":true,
 "username":"sub1"
@@ -18,8 +19,10 @@
 "password":"sub2",
 "fines":0,
 "name":"sub2",
-"checkedItem":[],
-"lookForItem":[],
+"checkedItem":["dante's peak",
+"popular machinics issue 7",
+"book1"],
+"lookForItem":["cat in hat"],
 "age":0,
 "enabled":true,
 "username":"sub2"
@@ -29,8 +32,8 @@
 "hasKids":false,
 "password":"sub3",
 "fines":0,
-"name":"sub2",
-"checkedItem":[],
+"name":"sub3",
+"checkedItem":["to kill a mocking bird"],
 "lookForItem":[],
 "age":0,
 "enabled":true,
@@ -39,13 +42,13 @@
 {
 "birthday":44,
 "hasKids":false,
-"password":"44",
+"password":"sub4",
 "fines":0,
-"name":"44",
-"checkedItem":[],
+"name":"sub4",
+"checkedItem":["to kill a mocking bird"],
 "lookForItem":[],
 "age":0,
 "enabled":true,
-"username":"44"
+"username":"sub4"
 }
 ]}

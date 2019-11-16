@@ -1,3 +1,19 @@
 {"magazine":[
-
+{
+"comments":[""],
+"issue":["nov",
+"22"],
+"year":3,
+"author":"as",
+"series":"23",
+"ratings":[0,0],
+"genre":["Fantasy",
+"Mystery"],
+"borrower":[["sub2",
+"7"]],
+"isMature":false,
+"title":"popular machinics issue 7",
+"articles":23,
+"desc":"oooff"
+}
 ]}
