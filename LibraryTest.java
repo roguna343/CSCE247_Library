@@ -28,7 +28,13 @@ class LibraryTest {
 
 	@Test
 	void testIsAvailable() {
-		fail("Not yet implemented");
+		Library libTest = new Library();
+		Book toAdd = new Book();
+		toAdd.setTitle("Find me");
+		libTest.addNewItem(toAdd);
+		boolean actual = libTest.isAvailable("Find me");
+		boolean expected = true;
+		assertEquals(expected, actual);
 	}
 
 	@Test
@@ -39,7 +45,8 @@ class LibraryTest {
 
 	@Test
 	void testGetInventoryInfo() {
-		fail("Not yet implemented");
+		Library libTest = new Library();
+		libTest.getInventoryInfo();
 	}
 
 	@Test
@@ -49,7 +56,14 @@ class LibraryTest {
 
 	@Test
 	void testAddNewItem() {
-		fail("Not yet implemented");
+		Library libTest = new Library();
+		Book book = new Book();
+		String title = "The Giver";
+		book.setTitle(title);
+		libTest.addNewItem(book);
+		boolean expected = libTest.isAvailable(title);
+		boolean actual = libTest.isAvailable(title);
+		assertEquals(expected, actual);
 	}
 
 	@Test
